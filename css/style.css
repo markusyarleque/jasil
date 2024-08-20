@@ -330,6 +330,11 @@ button {
     font-size: 18px;
     color: #fcfefe;
     text-transform: uppercase;
+    text-shadow:
+        -1px -0.5px 0 #fda417,  /* Sombra arriba izquierda (rojo) */
+         1px -0.5px 0 #fda417,  /* Sombra arriba derecha (rojo) */
+        -1px  0.5px 0 #fda417,  /* Sombra abajo izquierda (rojo) */
+         1px  0.5px 0 #fda417;  /* Sombra abajo derecha (rojo) */
 }
 
 .navbar-light .navbar-nav .nav-link:focus,

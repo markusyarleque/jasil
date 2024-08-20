@@ -1,0 +1,28 @@
+<?php
+$page_title = 'Nosotros';
+include_once('layouts/header.php');
+?>
+</div>
+<!-- header section end -->
+<!-- about sectuion start -->
+<div class="about_section layout_padding">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-6">
+            <h1 class="about_taital">About Us</h1>
+            <p class="about_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All </p>
+            <div class="read_bt_1"><a href="#">Read More</a></div>
+         </div>
+         <div class="col-md-6">
+            <div class="about_img">
+               <div class="video_bt">
+                  <div class="play_icon"><img src="images/play-icon.png"></div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- about sectuion end -->
+<!-- footer section start -->
+<?php include_once('layouts/footer.php'); ?>
