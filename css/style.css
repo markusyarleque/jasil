@@ -331,10 +331,10 @@ button {
     color: #fcfefe;
     text-transform: uppercase;
     text-shadow:
-        -1px -0.5px 0 #fda417,  /* Sombra arriba izquierda (rojo) */
-         1px -0.5px 0 #fda417,  /* Sombra arriba derecha (rojo) */
-        -1px  0.5px 0 #fda417,  /* Sombra abajo izquierda (rojo) */
-         1px  0.5px 0 #fda417;  /* Sombra abajo derecha (rojo) */
+        -0.5px -0.5px 0 #0000ff,  /* Sombra arriba izquierda (rojo) */
+         0.5px -0.5px 0 #0000ff,  /* Sombra arriba derecha (rojo) */
+        -0.5px  0.5px 0 #0000ff,  /* Sombra abajo izquierda (rojo) */
+         0.5px  0.5px 0 #0000ff;  /* Sombra abajo derecha (rojo) */
 }
 
 .navbar-light .navbar-nav .nav-link:focus,
