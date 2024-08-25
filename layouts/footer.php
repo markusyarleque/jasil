@@ -5,13 +5,13 @@
                 <div class="location_text">
                     <ul>
                         <li>
-                            <a href="#"><span class="padding_15"><i class="fa fa-mobile" aria-hidden="true"></i></span> <br>Call +01 1234567890</a>
+                            <a href="#"><span class="padding_15"><i class="fa fa-mobile" aria-hidden="true"></i></span> <br>+51 902332192</a>
                         </li>
                         <li class="active">
-                            <a href="#"><span class="padding_15"><i class="fa fa-envelope" aria-hidden="true"></i></span> <br>demo@gmail.com</a>
+                            <a href="#"><span class="padding_15"><i class="fa fa-envelope" aria-hidden="true"></i></span> <br>ryd.jasil@gmail.com</a>
                         </li>
                         <li>
-                            <a href="#"><span class="padding_15"><i class="fa fa-map-marker" aria-hidden="true"></i></span> <br>Location</a>
+                            <a href="#"><span class="padding_15"><i class="fa fa-map-marker" aria-hidden="true"></i></span> <br>Talara, Perú</a>
                         </li>
                     </ul>
                 </div>
@@ -20,28 +20,28 @@
         <div class="footer_section_2">
             <div class="row">
                 <div class="col-md-4">
-                    <h2 class="useful_text">QUICK LINKS</h2>
+                    <h2 class="useful_text">JASIL</h2>
                     <div class="footer_menu">
                         <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="about.html">About</a></li>
-                            <li><a href="services.html">Services</a></li>
-                            <li><a href="projects.html">Projects</a></li>
-                            <li><a href="testimonial.html">Testimonial</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="index.php">Inicio</a></li>
+                            <li><a href="about.php">Nosotros</a></li>
+                            <li><a href="services.php">Servicios</a></li>
+                            <li><a href="projects.php">Proyectos</a></li>
+                            <li><a href="testimonial.php">Clientes</a></li>
+                            <li><a href="blog.php">Blog</a></li>
+                            <li><a href="contact.php">Contacto</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <h2 class="useful_text">Work Portfolio</h2>
-                    <p class="lorem_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem</p>
+                    <h2 class="useful_text"></h2>
+                    <p class="lorem_text"></p>
                 </div>
                 <div class="col-md-4">
-                    <h2 class="useful_text">SIGN UP TO OUR NEWSLETTER</h2>
+                    <h2 class="useful_text">Te Contactamos</h2>
                     <div class="form-group">
-                        <textarea class="update_mail" placeholder="Enter Your Email" rows="5" id="comment" name="Enter Your Email"></textarea>
-                        <div class="subscribe_bt"><a href="#">Subscribe</a></div>
+                        <textarea class="update_mail" placeholder="Ingrese su correo" rows="5" id="comment" name="Enter Your Email"></textarea>
+                        <div class="subscribe_bt"><a href="#">Suscríbete</a></div>
                     </div>
                 </div>
             </div>
@@ -49,16 +49,16 @@
         <div class="social_icon">
             <ul>
                 <li>
-                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="https://www.facebook.com/jasil"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="https://www.x.com/jasil"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a href="https://www.linkedin.com/jasil"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    <a href="https://www.instagram.com/jasil"><i class="fa fa-instagram" aria-hidden="true"></i></a>
                 </li>
             </ul>
         </div>
@@ -70,7 +70,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <p class="copyright_text">2019 All Rights Reserved. Design by <a href="https://html.design" rel="nofollow">HTML.DESIGN</a> Distribution by <a href="https://themewagon.com">ThemeWagon</a></p>
+                <p class="copyright_text">&#169; 2024 Todos los Derechos Reservados.
             </div>
         </div>
     </div>
@@ -82,6 +82,31 @@
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/jquery-3.0.0.min.js"></script>
 <script src="js/plugin.js"></script>
+<script>
+    function goBack() {
+        window.history.back();
+    };
+    $(document).ready(function() {
+        $('.collapse ul li a').click(function(e) {
+            e.preventDefault();
+            var target = $(this).attr('id');
+            // Asegurarse de que target tiene el formato correcto como un selector de ID
+            if (target != undefined && target.startsWith('#')) {
+                var $targetElement = $(target);
+                // Verificar si el elemento existe antes de proceder
+                if ($targetElement.length) {
+                    $targetElement.load('admin/includes/load_content.php', {
+                        section: target.substring(1)
+                    });
+                } else {
+                    console.error('Elemento de destino no encontrado:', target);
+                }
+            } else {
+                console.error('El valor de id no es un ID válido:', target);
+            }
+        });
+    });
+</script>
 </body>
 
 </html>

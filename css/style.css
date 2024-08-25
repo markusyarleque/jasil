@@ -32,7 +32,13 @@
 @import url(nice-select.css);
 
 /*--------------------------------------------------------------------- skeleton ---------------------------------------------------------------------*/
-
+:root{
+  --yellow-color: #f29102;
+  --azul-color: #0d6efd;
+  --black-color: #3b3a3a;
+  --white-color: #fff;
+  --grey-color: #5a5959;
+}
 * {
     box-sizing: border-box !important;
     transition: ease all 0.5s;
@@ -187,7 +193,7 @@ img {
 }
 
 .form-control:focus {
-    border-color: #ffffff !important;
+    border-color: var(--white-color) !important;
     box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .25);
 }
 
@@ -231,7 +237,7 @@ button {
 .header_top_section {
     width: 100%;
     display: flex;
-    background-color: #07092f;
+    background-color: var(--azul-color);
     height: auto;
     padding: 20px 0px;
 }
@@ -244,48 +250,48 @@ button {
     width: 100%;
     float: left;
     font-size: 16px;
-    color: #ffffff;
+    color: var(--white-color);
 }
 
 .call_text a {
-    color: #ffffff;
+    color: var(--white-color);
 }
 
 .call_text a:hover {
-    color: #fda417;
+    color: var(--yellow-color);
 }
 
 .call_text_1 {
     width: 100%;
     float: left;
     font-size: 16px;
-    color: #ffffff;
+    color: var(--white-color);
     text-align: right;
 }
 
 .call_text_1 a {
-    color: #ffffff;
+    color: var(--white-color);
 }
 
 .call_text_1 a:hover {
-    color: #fda417;
+    color: var(--yellow-color);
 }
 
 .call_text_2 {
     width: 100%;
     float: left;
     font-size: 16px;
-    color: #ffffff;
+    color: var(--white-color);
     text-align: right;
     text-align: center;
 }
 
 .call_text_2 a {
-    color: #ffffff;
+    color: var(--white-color);
 }
 
 .call_text_2 a:hover {
-    color: #fda417;
+    color: var(--yellow-color);
 }
 
 .padding_left_15 {
@@ -308,7 +314,7 @@ button {
 }
 
 .header_bg {
-    background: #1f1f1f;
+    background-image: url(../images/banner-bg.png);
 }
 
 .bg-light {
@@ -328,25 +334,31 @@ button {
     padding-right: 10px;
     padding-left: 10px;
     font-size: 18px;
-    color: #fcfefe;
+    color: var(--black-color);
     text-transform: uppercase;
     text-shadow:
-        -0.5px -0.5px 0 #0000ff,  /* Sombra arriba izquierda (rojo) */
-         0.5px -0.5px 0 #0000ff,  /* Sombra arriba derecha (rojo) */
-        -0.5px  0.5px 0 #0000ff,  /* Sombra abajo izquierda (rojo) */
-         0.5px  0.5px 0 #0000ff;  /* Sombra abajo derecha (rojo) */
+        -0.5px -0.5px 0 var(--azul-color),  /* Sombra arriba izquierda */
+         0.5px -0.5px 0 var(--azul-color),  /* Sombra arriba derecha */
+        -0.5px  0.5px 0 var(--azul-color),  /* Sombra abajo izquierda */
+         0.5px  0.5px 0 var(--azul-color);  /* Sombra abajo derecha */
 }
 
 .navbar-light .navbar-nav .nav-link:focus,
 .navbar-light .navbar-nav .nav-link:hover {
-    color: #fda417;
+    color: var(--white-color);
+    text-shadow: none;
 }
 
 .navbar-light .navbar-nav .active>.nav-link,
 .navbar-light .navbar-nav .nav-link.active,
 .navbar-light .navbar-nav .nav-link.show,
 .navbar-light .navbar-nav .show>.nav-link {
-    color: #fda417;
+    color: var(--white-color);
+    text-shadow:
+        -0.5px -0.5px 0 var(--black-color),  /* Sombra arriba izquierda */
+         0.5px -0.5px 0 var(--black-color),  /* Sombra arriba derecha */
+        -0.5px  0.5px 0 var(--black-color),  /* Sombra abajo izquierda */
+         0.5px  0.5px 0 var(--black-color);  /* Sombra abajo derecha */
 }
 
 .navbar {
@@ -363,16 +375,16 @@ button {
 .login_text li {
     float: left;
     font-size: 18px;
-    color: #ffffff;
+    color: var(--black-color);
     padding: 0px 30px;
 }
 
 .login_text li a {
-    color: #ffffff;
+    color: var(--black-color);
 }
 
 .login_text li a:hover {
-    color: #fda417;
+    color: var(--white-color);
 }
 
 .quote_btn {
@@ -385,16 +397,16 @@ button {
     float: left;
     font-size: 16px;
     text-align: center;
-    color: #ffffff;
-    background-color: #fda417;
+    color: var(--white-color);
+    background-color: var(--azul-color);
     border-radius: 40px;
     padding: 8px;
     text-transform: uppercase;
 }
 
 .quote_btn a:hover {
-    background-color: #ffffff;
-    color: #252525;
+    background-color: var(--yellow-color);
+    color: var(--azul-color);
 }
 
 
@@ -418,19 +430,24 @@ button {
     width: 100%;
     float: left;
     font-size: 60px;
-    color: #ffffff;
+    color: var(--black-color);
     text-transform: uppercase;
     font-weight: bold;
     padding-bottom: 0px;
     line-height: 70px;
     font-family: 'Poppins', sans-serif;
+    text-shadow:
+        -0.5px -0.5px 0 var(--white-color),  /* Sombra arriba izquierda */
+         0.5px -0.5px 0 var(--white-color),  /* Sombra arriba derecha */
+        -0.5px  0.5px 0 var(--white-color),  /* Sombra abajo izquierda */
+         0.5px  0.5px 0 var(--white-color);  /* Sombra abajo derecha */
 }
 
 .banner_text {
     width: 100%;
     float: left;
     font-size: 16px;
-    color: #ffffff;
+    color: var(--white-color);
     margin-left: 0px;
     font-family: 'Poppins', sans-serif;
 }
@@ -450,45 +467,44 @@ button {
     width: 100%;
     float: left;
     padding: 10px 10px;
-    color: #ffffff;
-    background-color: #0b0b0b;
+    color: var(--white-color);
+    background-color: var(--black-color);
     text-align: center;
     font-size: 16px;
     border-radius: 40px;
 }
 
 .started_text a:hover {
-    color: #ffffff;
-    background-color: #fda417;
+    color: var(--white-color);
+    background-color: var(--yellow-color);
 }
 
 .started_text.active a {
-    color: #ffffff;
-    background-color: #fda417;
+    color: var(--white-color);
+    background-color: var(--azul-color);
 }
 
 #my_slider a.carousel-control-prev {
-    left: 30px;
+    left: inherit;
     top: 180px;
-    right: 0px;
+    right: 30px;
 }
 
 #my_slider a.carousel-control-next {
-    right: 0px;
+    right: 30px;
     top: 120px;
-    left: 30px;
-    color: #ffffff;
-    background-color: #f8c30b;
+    color: var(--white-color);
+    background-color: var(--yellow-color);
 }
 
 #my_slider .carousel-control-next,
 #my_slider .carousel-control-prev {
     width: 55px;
     height: 55px;
-    background: #ffffff;
+    background: var(--white-color);
     opacity: 1;
     font-size: 40px;
-    color: #070606;
+    color: var(--black-color);
     border-radius: 100px;
 }
 
@@ -496,8 +512,8 @@ button {
 #my_slider .carousel-control-next:hover,
 #my_slider .carousel-control-prev:focus,
 #my_slider .carousel-control-prev:hover {
-    color: #ffffff;
-    background-color: #f8c30b;
+    color: var(--white-color);
+    background-color: var(--yellow-color);
 }
 
 
@@ -525,7 +541,7 @@ button {
     width: 100%;
     float: left;
     font-size: 16px;
-    color: #5a5959;
+    color: var(--grey-color);
     margin-left: 0px;
 }
 
@@ -595,15 +611,15 @@ button {
     font-size: 16px;
     text-align: center;
     background-color: #282828;
-    color: #ffffff;
+    color: var(--white-color);
     padding: 10px 0px;
     border-radius: 40px;
     font-weight: bold;
 }
 
 .read_bt_1 a:hover {
-    background-color: #fda417;
-    color: #ffffff;
+    background-color: var(--azul-color);
+    color: var(--white-color);
 }
 
 
@@ -621,7 +637,7 @@ button {
     width: 100%;
     float: left;
     font-size: 40px;
-    color: #1b1b1b;
+    color: var(--black-color);
     font-weight: bold;
     text-align: center;
 }
@@ -639,7 +655,7 @@ button {
     width: 100%;
     font-size: 14px;
     margin: 0px;
-    color: #1b1b1b;
+    color: var(--black-color);
     padding-top: 20px;
 }
 
@@ -651,7 +667,7 @@ button {
 
 .box_main {
     width: 100%;
-    background-color: #ffffff;
+    background-color: var(--white-color);
     height: auto;
     padding: 40px 20px 40px 20px;
     border-radius: 20px;
@@ -659,12 +675,12 @@ button {
 }
 
 .box_main:hover {
-    background-color: #ffffff;
+    background-color: var(--white-color);
     box-shadow: 0px 0px 20px 0px;
 }
 
 .box_main.active {
-    background-color: #ffffff;
+    background-color: var(--white-color);
     box-shadow: 0px 0px 20px 0px;
 }
 
@@ -676,7 +692,7 @@ button {
 .development_text {
     width: 100%;
     font-size: 24px;
-    color: #1b1b1b;
+    color: var(--black-color);
     font-weight: bold;
     padding: 20px 0px 0px 0px;
     text-transform: uppercase;
@@ -696,7 +712,7 @@ button {
     width: 100%;
     text-align: center;
     font-size: 16px;
-    color: #fda51a;
+    color: var(--yellow-color);
     padding: 15px 20px;
     margin-top: 10px;
     font-weight: bold;
@@ -731,7 +747,7 @@ button {
     width: 100%;
     float: left;
     font-size: 16px;
-    color: #5a5959;
+    color: var(--grey-color);
     margin: 0px;
 }
 
@@ -829,7 +845,7 @@ i.fa.fa-link {
 .project_main {
     width: 100%;
     padding: 20px;
-    background-color: #fda417;
+    background-color: #0d6efd;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     top: -2px;
@@ -907,7 +923,7 @@ i.fa.fa-link {
 }
 
 .projects_section ul .nav-link.active {
-    background-color: #fda417;
+    background-color: #0d6efd;
     color: #fff;
 }
 
@@ -974,7 +990,7 @@ i.fa.fa-link {
     right: 0px;
     top: 500px;
     color: #fff;
-    background-color: #fda417;
+    background-color: #0d6efd;
 }
 
 #costum_slider .carousel-control-next,
@@ -995,7 +1011,7 @@ i.fa.fa-link {
 #costum_slider .carousel-control-prev:focus,
 #costum_slider .carousel-control-prev:hover {
     color: #fff;
-    background-color: #fda417;
+    background-color: #0d6efd;
 }
 
 
@@ -1074,7 +1090,7 @@ textarea#comment.massage-bt::placeholder {
     text-align: center;
     font-size: 18px;
     color: #ffffff;
-    background-color: #fda417;
+    background-color: #0d6efd;
     padding: 12px;
     text-transform: uppercase;
     margin-top: 30px;
@@ -1161,11 +1177,11 @@ textarea#comment.massage-bt::placeholder {
 }
 
 .location_text li a:hover {
-    color: #fda417;
+    color: #0d6efd;
 }
 
 .location_text li.active a {
-    color: #fda417;
+    color: #0d6efd;
 }
 
 .padding_15 {
@@ -1203,7 +1219,7 @@ textarea#comment.massage-bt::placeholder {
 }
 
 .social_icon li a:hover {
-    background-color: #fda417;
+    background-color: #0d6efd;
     color: #ffffff;
 }
 
@@ -1234,7 +1250,7 @@ textarea#comment.massage-bt::placeholder {
     color: #ffffff;
     font-size: 16px;
     padding: 10px 0px;
-    background-color: #fda417;
+    background-color: #0d6efd;
     text-transform: uppercase;
     text-align: center;
     border-radius: 40px;
@@ -1275,7 +1291,7 @@ textarea#comment.massage-bt::placeholder {
 }
 
 .footer_menu li a:hover {
-    color: #fda417;
+    color: #0d6efd;
 }
 
 .footer_menu li.active a {
@@ -1291,7 +1307,7 @@ textarea#comment.massage-bt::placeholder {
 .copyright_section {
     width: 100%;
     float: left;
-    background-color: #ffffff;
+    background-color: var(--azul-color);
     height: auto;
 }
 
@@ -1300,7 +1316,7 @@ textarea#comment.massage-bt::placeholder {
     float: left;
     font-size: 16px;
     margin: 15px 0px;
-    color: #252525;
+    color: var(--white-color);
     text-align: center;
 }
 
@@ -1309,7 +1325,7 @@ textarea#comment.massage-bt::placeholder {
 }
 
 .copyright_text a:hover {
-    color: #0fbdd7;
+    color: var(--black-color);
 }
 
 
@@ -1318,3 +1334,67 @@ textarea#comment.massage-bt::placeholder {
 .margin_top90 {
     margin-top: 90px;
 }
+
+/* 404 section start */
+
+.container-404 {
+    width: 100%;
+    float: left;
+}
+
+.error404_title{
+    width: 100%;
+    float: left;
+    font-size: 40px;
+    color: var(--black-color);
+    font-weight: bold;
+    padding-top: 40px;
+    text-align: center;
+}
+
+.error404_text {
+    width: 100%;
+    font-size: 16px;
+    color: var(--grey-color);
+    margin: 0 auto;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.error404_img {
+    width: 100%;
+    float: left;
+    background-image: url(../images/error404.png);
+    height: auto;
+    background-size: cover;
+    padding: 100px 0px 0px 0px;
+}
+
+.error404_bt {
+    width: 100%;
+    padding: 250px;
+}
+
+.footer_404 {
+    width: 180px;
+    margin: 0px auto;
+}
+
+.footer_404 a {
+    width: 100%;
+    float: left;
+    font-size: 16px;
+    text-align: center;
+    background-color: #282828;
+    color: var(--white-color);
+    padding: 10px 0px;
+    border-radius: 40px;
+    font-weight: bold;
+}
+
+.footer_404 a:hover {
+    background-color: var(--azul-color);
+    color: var(--white-color);
+}
+
+/* 404 section end */

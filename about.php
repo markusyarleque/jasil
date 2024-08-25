@@ -1,16 +1,19 @@
 <?php
 $page_title = 'Nosotros';
-include_once('layouts/header.php');
+// Obtener el nombre del archivo actual
+$current_page = basename($_SERVER['PHP_SELF']);
+// Verificar si es index.php
+if ($current_page !== 'index.php') {
+   include_once('layouts/header.php');
+}
 ?>
-</div>
-<!-- header section end -->
-<!-- about sectuion start -->
+<!-- about section start -->
 <div class="about_section layout_padding">
    <div class="container">
       <div class="row">
          <div class="col-md-6">
-            <h1 class="about_taital">About Us</h1>
-            <p class="about_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All </p>
+            <h1 class="about_taital">¿Quiénes somos?</h1>
+            <p class="about_text" id="historia">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All </p>
             <div class="read_bt_1"><a href="#">Read More</a></div>
          </div>
          <div class="col-md-6">
@@ -22,7 +25,13 @@ include_once('layouts/header.php');
          </div>
       </div>
    </div>
+   <br>
 </div>
-<!-- about sectuion end -->
+<!-- about section end -->
 <!-- footer section start -->
-<?php include_once('layouts/footer.php'); ?>
+<?php
+// Verificar si es index.php
+if ($current_page !== 'index.php') {
+   include_once('layouts/footer.php');
+}
+?>

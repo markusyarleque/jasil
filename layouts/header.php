@@ -1,3 +1,7 @@
+<?php
+ob_start();
+require_once('admin/includes/load.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,8 +27,11 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <!-- Responsive-->
     <link rel="stylesheet" href="css/responsive.css">
-    <!-- fevicon -->
-    <link rel="icon" href="images/fevicon.png" type="image/gif" />
+    <!-- favicon -->
+    <link rel="icon" href="images/favicon-16.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="images/favicon-32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="images/favicon-96.png" sizes="96x96" type="image/png">
+    <link rel="icon" href="images/favicon-192.png" sizes="192x192" type="image/png">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
     <!-- Tweaks for older IEs-->
@@ -42,7 +49,7 @@
                     <div class="header_top_main">
                         <div class="call_text"><a href="#"><i class="fa fa-phone" aria-hidden="true"></i> +51 902332192</a></div>
                         <div class="call_text_2"><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i> ryd.jasil@gmail.com</a></div>
-                        <div class="call_text_1"><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> Talara, Perú</a></div>
+                        <div class="call_text_1"><a href="#mapa"><i class="fa fa-map-marker" aria-hidden="true"></i> Talara, Perú</a></div>
                     </div>
                 </div>
             </div>
@@ -63,7 +70,7 @@
                             <a class="nav-link" href="index.php">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.php">Nosotros</a>
+                            <a class="nav-link" href="about.php" id="#historia">Nosotros</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="services.php">Servicios</a>
@@ -84,8 +91,7 @@
                     <form class="form-inline my-2 my-lg-0">
                         <div class="login_text">
                             <ul>
-                                <li><a href="#">Login</a></li>
-                                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+                                <li><a href="admin/login.php" target="_blank"><i class="fa fa-user" aria-hidden="true"></i> Login</a></li>
                             </ul>
                         </div>
                         <div class="quote_btn"><a href="#">Cotizar</a></div>
@@ -93,3 +99,14 @@
                 </div>
             </nav>
         </div>
+        <!-- banner section start -->
+        <?php
+        $page_title = 'Servicios';
+        $current_page = basename($_SERVER['PHP_SELF']);
+        if ($current_page == 'index.php') {
+            include_once('banner.php');
+        }
+        ?>
+        <!-- banner section end -->
+    </div>
+    <!-- header section end -->
