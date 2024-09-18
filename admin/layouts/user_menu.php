@@ -7,24 +7,47 @@
   </li>
   <li>
     <a href="#" class="submenu-toggle">
+      <i class="	glyphicon glyphicon-th"></i>
+      <span>Compras</span>
+    </a>
+    <ul class="nav submenu">
+      <li><a href="<?php echo HTTP_SERVER_ROOT; ?>/views/incomes/incomes.php">Ingresos</a> </li>
+      <li><a href="<?php echo HTTP_SERVER_ROOT; ?>/views/providers/providers.php">Proveedores</a> </li>
+    </ul>
+  </li>
+  <li>
+    <a href="#" class="submenu-toggle">
       <i class="glyphicon glyphicon-shopping-cart"></i>
       <span>Ventas</span>
     </a>
     <ul class="nav submenu">
       <li><a href="<?php echo HTTP_SERVER_ROOT; ?>/views/customers/customers.php">Clientes</a> </li>
       <li><a href="<?php echo HTTP_SERVER_ROOT; ?>/views/sales/sales.php">Ventas</a> </li>
+      <li><a href="<?php echo ROOT_URL; ?>/views/tickets/tickets.php">Boletas </a></li>
     </ul>
   </li>
   <li>
     <a href="#" class="submenu-toggle">
       <i class="glyphicon glyphicon-stats"></i>
-      <span>Reportes</span>
+      <span>Reporte de compras</span>
     </a>
     <ul class="nav submenu">
-      <li><a href="<?php echo ROOT_URL; ?>/views/tickets/tickets.php">Boletas </a></li>
-      <li><a href="<?php echo HTTP_SERVER_ROOT; ?>/sales_report.php">Ventas por fecha </a></li>
-      <li><a href="<?php echo HTTP_SERVER_ROOT; ?>/monthly_sales.php">Ventas mensuales</a></li>
-      <li><a href="<?php echo HTTP_SERVER_ROOT; ?>/daily_sales.php">Ventas diarias</a> </li>
+      <li><a href="<?php echo HTTP_SERVER_ROOT; ?>/views/reports/income_report.php">Compras por fecha </a></li>
+      <li><a href="<?php echo HTTP_SERVER_ROOT; ?>/views/reports/daily_income.php">Compras diarias </a></li>
+      <li><a href="<?php echo HTTP_SERVER_ROOT; ?>/views/reports/monthly_income.php">Compras mensuales</a></li>
+      <li><a href="<?php echo HTTP_SERVER_ROOT; ?>/views/reports/annually_income.php">Compras anuales</a> </li>
+    </ul>
+  </li>
+  <li>
+    <a href="#" class="submenu-toggle">
+      <i class="glyphicon glyphicon-stats"></i>
+      <span>Reporte de ventas</span>
+    </a>
+    <ul class="nav submenu">
+      <li><a href="<?php echo HTTP_SERVER_ROOT; ?>/views/reports/sales_report.php">Ventas por fecha </a></li>
+      <li><a href="<?php echo HTTP_SERVER_ROOT; ?>/views/reports/daily_sales.php">Ventas diarias </a></li>
+      <li><a href="<?php echo HTTP_SERVER_ROOT; ?>/views/reports/monthly_sales.php">Ventas mensuales</a></li>
+      <li><a href="<?php echo HTTP_SERVER_ROOT; ?>/views/reports/annually_sales.php">Ventas anuales</a> </li>
     </ul>
   </li>
   <li>

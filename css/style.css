@@ -168,7 +168,7 @@ img {
     height: auto;
 }
 
- :focus {
+:focus {
     outline: 0;
 }
 
@@ -307,14 +307,16 @@ button {
 .header_section {
     width: 100%;
     float: left;
-    background-image: url(../images/banner-bg.png);
     height: auto;
-    background-size: 100% 100%;
+    background-image: url(../images/banner-bg.png);
+    background-size: cover;
     background-repeat: no-repeat;
 }
 
+
+
 .header_bg {
-    background-image: url(../images/banner-bg.png);
+    background: #1f1f1f;
 }
 
 .bg-light {
@@ -548,12 +550,31 @@ button {
 .about_img {
     width: 100%;
     float: left;
-    background-image: url(../images/about-img.png);
+    background-image: url(../images/aqua.jpg);
     height: auto;
     background-size: cover;
     padding: 0px 0px 0px 0px;
 }
 
+.about_img_2 {
+    width: 100%;
+    float: left;
+    background-image: url(../images/aqua_2.jpg);
+    height: auto;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 0px 0px 0px 0px;
+}
+
+.about_img_3 {
+    width: 100%;
+    float: left;
+    background-image: url(../images/aqua_3.jpg);
+    height: auto;
+    background-size: cover;
+    padding: 0px 0px 0px 0px;
+}
 .video_bt {
     width: 100%;
     padding: 155px 0px;
@@ -1053,7 +1074,7 @@ i.fa.fa-link {
     width: 100%;
     float: left;
     font-size: 16px;
-    color: #c5c8c7;
+    color: var(--black-color);
     border: 0px;
     background-color: transparent;
     padding: 8px 15px;
@@ -1244,7 +1265,7 @@ textarea#comment.massage-bt::placeholder {
     padding-top: 30px;
 }
 
-.subscribe_bt a {
+.subscribe_bt button {
     width: 100%;
     float: left;
     color: #ffffff;
@@ -1256,7 +1277,7 @@ textarea#comment.massage-bt::placeholder {
     border-radius: 40px;
 }
 
-.subscribe_bt a:hover {
+.subscribe_bt button:hover {
     color: #252525;
     background-color: #ffffff;
 }

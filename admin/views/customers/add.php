@@ -17,6 +17,7 @@ if (isset($_POST['add_customer'])) {
         $document_type = (int)$db->escape($_POST['type']);
         $document   = remove_junk($db->escape($_POST['document']));
         $name   = remove_junk($db->escape($_POST['name']));
+        $address   = remove_junk($db->escape($_POST['address']));
         $user_id    = (int)$user['id'];
         $e_customer = find_customer_by_doc($document_type, $document);
         if ($e_customer) {
@@ -24,9 +25,9 @@ if (isset($_POST['add_customer'])) {
             redirect('add.php', false);
         } else {
             $query = "INSERT INTO customers (";
-            $query .= "document_type, document,name,registered_by,registration_date,modified_by,modification_date";
+            $query .= "document_type, document,name,address,registered_by,registration_date,modified_by,modification_date";
             $query .= ") VALUES (";
-            $query .= " '{$document_type}', '{$document}', '{$name}', '{$user_id}', '{$fechaHora}', '{$user_id}','{$fechaHora}'";
+            $query .= " '{$document_type}', '{$document}', '{$name}', '{$address}', '{$user_id}', '{$fechaHora}', '{$user_id}','{$fechaHora}'";
             $query .= ")";
             if ($db->query($query)) {
                 //sucess

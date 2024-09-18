@@ -38,7 +38,7 @@ function validate_fields($var)
   foreach ($var as $field) {
     $val = remove_junk($_POST[$field]);
     if (isset($val) && $val == '') {
-      $errors = $field . " No puede estar en blanco.";
+      $errors = $field . " - No puede estar en blanco.";
       return $errors;
     }
   }
@@ -57,6 +57,18 @@ function display_msg($msg = '')
       $output .= remove_junk(first_character($value));
       $output .= "</div>";
     }
+    // Agregar el script para el cierre automático
+    $output .= "<script>
+                  setTimeout(function() {
+                    var alerts = document.querySelectorAll('.alert');
+                    alerts.forEach(function(alert) {
+                      alert.classList.add('fade');
+                      alert.addEventListener('transitionend', function() {
+                        alert.remove();
+                      });
+                    });
+                  }, 2000); // 5000 milisegundos = 5 segundos
+                </script>";
     return $output;
   } else {
     return "";
@@ -97,7 +109,7 @@ function subtotales($subtotales)
   }
   $igv = $sum * 0.18;
   $og = $sum - $igv;
-  return array($sum, $igv, $og);
+  return array($og, $igv, $sum);
 }
 /*--------------------------------------------------------------*/
 /* Function for Readable date time
@@ -148,4 +160,26 @@ function conca0($valor)
   $valor_completado = str_pad($valor_str, 8, '0', STR_PAD_LEFT);
 
   return $valor_completado;
+}
+// Array con los nombres de los meses en español
+function name_month($mes)
+{
+  // Array de meses
+  $meses = array(
+    1 => 'Enero',
+    2 => 'Febrero',
+    3 => 'Marzo',
+    4 => 'Abril',
+    5 => 'Mayo',
+    6 => 'Junio',
+    7 => 'Julio',
+    8 => 'Agosto',
+    9 => 'Septiembre',
+    10 => 'Octubre',
+    11 => 'Noviembre',
+    12 => 'Diciembre'
+  );
+
+  // Retorna el nombre del mes correspondiente
+  return isset($meses[$mes]) ? $meses[$mes] : 'Enero';
 }

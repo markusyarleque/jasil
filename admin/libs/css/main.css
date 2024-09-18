@@ -57,7 +57,7 @@ body{
   background-color: #FF7857;
 }
 .bg-purple{
-  background-color: #b62caf;
+  background-color: #786e77;
 }
 .bg-pc{
   background-color: #ffce9f;
@@ -249,11 +249,27 @@ table td h6{
 table tfoot tr td:first-child{
   border: 0;
 }table tfoot tr td:last-child{
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #003160;
 }table td h6,table tfoot tr td:last-child{
   color: #000;
   _font-size: 1.2em;
   font-weight: normal;
+}
+.tfoot_table{
+  font-family: 'Courier New', Courier, monospace;
+  font-size: larger;
+}
+.row .col-md-12 .panel .panel-body .table {
+  border-collapse: collapse;
+  border-color: var(--background-color);
+  border-width: 2px;
+  border-style: solid;
+}
+.row .col-md-12 .panel .panel-body .table th,
+.row .col-md-12 .panel .panel-body .table td {
+  border-color: var(--background-color);
+  border-width: 2px;
+  border-style: solid;
 }
 .form-control{
   color: #646464;
@@ -358,4 +374,26 @@ input[type=file]{
 }
 .btn-file {
   text-transform: none;
+}
+.tittle_table{
+  text-align: center;
+  text-decoration: underline;
+  text-transform: uppercase;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: larger;
+}
+
+.tittle_client{
+  text-align: left;
+  text-transform: uppercase;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: medium;
+}
+
+.tittle_client span{
+  text-align: left;
+  text-decoration: underline;
+  text-transform: uppercase;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: medium;
 }

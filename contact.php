@@ -36,9 +36,9 @@ if ($current_page !== 'index.php') {
          </div>
       </div>
    </div>
-   <div class="map_main" id="mapa">
+   <div class="map_main">
       <div class="map-responsive">
-         <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB_L_3JcjX1P596Bn7bBG1HeXNmKw79QVw&amp;q=place_id:ChIJLR1X1S9FNpARqpcCOAk2upY&amp;center=-4.573608678347304,-81.27028559814471" width="600" height="600" frameborder="0" style="border:0; width: 100%;" allowfullscreen=""></iframe>
+         <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB_L_3JcjX1P596Bn7bBG1HeXNmKw79QVw&amp;q=place_id:ChIJb_SXTQBFNpAR2Spjf-b26EM&amp;center=-4.573608678347304,-81.27028559814471" width="600" height="600" frameborder="0" style="border:0; width: 100%;" allowfullscreen="" id="mapa"></iframe>
       </div>
    </div>
 </div>

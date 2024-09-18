@@ -23,8 +23,9 @@ if (isset($_POST['update'])) {
         $document_type = (int)$db->escape($_POST['type']);
         $document   = remove_junk($db->escape($_POST['document']));
         $name   = remove_junk($db->escape($_POST['name']));
+        $address   = remove_junk($db->escape($_POST['address']));
         $user_id    = (int)$user['id'];
-        $sql = "UPDATE customers SET document_type ='{$document_type}', document ='{$document}',name='{$name}',modified_by='{$user_id}', modification_date='{$fechaHora}' WHERE id='{$db->escape($id)}'";
+        $sql = "UPDATE customers SET document_type ='{$document_type}', document ='{$document}',name='{$name}',address='{$address}',modified_by='{$user_id}', modification_date='{$fechaHora}' WHERE id='{$db->escape($id)}'";
         $result = $db->query($sql);
         if ($result && $db->affected_rows() === 1) {
             $session->msg('s', "EL cliente ha sido actualizado.");
@@ -53,7 +54,7 @@ if (isset($_POST['update'])) {
             <div class="panel-body">
                 <form method="post" action="edit.php?id=<?php echo (int)$e_customer['id']; ?>" class="clearfix">
                     <div class="form-group">
-                        <label for="type">Tipo de documento</label>
+                        <label for="type"><span class="glyphicon glyphicon-th-list"></span> Tipo de documento</label>
                         <select class="form-control" name="type">
                             <?php foreach ($documents as $type) : ?>
                                 <option <?php if ($type['id'] === $e_customer['document_type']) echo 'selected="selected"'; ?> value="<?php echo $type['id']; ?>"><?php echo ucwords($type['short_description']); ?></option>
@@ -61,12 +62,16 @@ if (isset($_POST['update'])) {
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="document">N° Documento</label>
-                        <input type="text" class="form-control" name="document" value="<?php echo remove_junk(ucwords($e_customer['document'])); ?>">
+                        <label for="document"><span class="glyphicon glyphicon-credit-card"></span> N° Documento</label>
+                        <input type="text" class="form-control" name="document" value="<?php echo remove_junk(ucwords($e_customer['document'])); ?>" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="name">Cliente</label>
+                        <label for="name"><span class="glyphicon glyphicon-user"></span> Cliente</label>
                         <input type="text" class="form-control" name="name" value="<?php echo remove_junk(ucwords($e_customer['name'])); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="address"><span class="glyphicon glyphicon-map-marker"></span> Dirección</label>
+                        <textarea class="form-control" name="address" rows="3" cols="50"><?php echo remove_junk(ucwords($e_customer['address'])); ?></textarea>
                     </div>
                     <div class="form-group clearfix">
                         <button type="submit" name="update" class="btn btn-info">Actualizar</button>

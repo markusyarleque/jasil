@@ -25,18 +25,18 @@ $tickets = find_all_ticket();
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th class="text-center" style="width: 40px;"><b>#</b></th>
-                            <th style="width: 50%;"><span class="glyphicon glyphicon-link"></span> URL </th>
+                            <th class="text-center" style="width: 8%;"><b>#</b></th>
+                            <th class="text-center" style="width: 35%;"><span class="glyphicon glyphicon-link"></span> N° Boleta </th>
                             <th class="text-center" style="width: 25%;"><span class="glyphicon glyphicon-calendar"></span> Fecha de registro</th>
-                            <th class="text-center" style="width: 15%;"><span class="glyphicon glyphicon-user"></span> Vendedor </th>
-                            <th class="text-center" style="width: 120px;"><span class="glyphicon glyphicon-file"></span> Ver </th>
+                            <th class="text-center" style="width: 20%;"><span class="glyphicon glyphicon-user"></span> Vendedor </th>
+                            <th class="text-center" style="width: 12%;"><span class="glyphicon glyphicon-file"></span> Ver </th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($tickets as $ticket) : ?>
                             <tr>
-                                <td class="text-center"><?php echo count_id(); ?></td>
-                                <td><?php echo remove_junk($ticket['url']); ?></td>
+                                <td class="text-center"><?php echo remove_junk($ticket['id']); ?></td>
+                                <td class="text-center"><?php echo remove_junk($ticket['n_boleta']); ?></td>
                                 <td class="text-center"><?php echo $ticket['registration_date']; ?></td>
                                 <td><?php echo remove_junk($ticket['name']); ?></td>
                                 <td class="text-center">

@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
 ?>
 <?php include_once('layouts/header.php'); ?>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <?php echo display_msg($msg); ?>
   </div>
 
@@ -36,6 +36,8 @@ if (isset($_POST['submit'])) {
           <form class="form-inline" action="media.php" method="POST" enctype="multipart/form-data">
             <div class="form-group">
               <div class="input-group">
+                <!-- Nuevo elemento para mostrar el nombre del archivo -->
+                <span id="file-name" style="margin-left: 10px;margin-right:5px"> </span>
                 <label class="btn btn-default btn-file">
                   Seleccionar archivo <input type="file" name="file_upload" multiple="multiple" style="display: none;" />
                 </label>
@@ -70,7 +72,7 @@ if (isset($_POST['submit'])) {
                   <?php echo $media_file['file_type']; ?>
                 </td>
                 <td class="text-center">
-                  <a href="delete_media.php?id=<?php echo (int) $media_file['id']; ?>" class="btn btn-danger btn-xs" title="Eliminar">
+                  <a href="javascript:void(0);" data-id="<?php echo (int) $media_file['id']; ?>" class="btn btn-danger btn-xs delete-media" title="Eliminar">
                     <span class="glyphicon glyphicon-trash"></span>
                   </a>
                 </td>
@@ -81,6 +83,22 @@ if (isset($_POST['submit'])) {
     </div>
   </div>
 </div>
-
+<!-- Modal de Confirmación -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h4>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas eliminar esta imagen?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtnMedia">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <?php include_once('layouts/footer.php'); ?>

@@ -1,8 +1,14 @@
 <?php
-$page_title = 'Edit sale';
-require_once('includes/load.php');
+$page_title = 'Editar venta';
+require_once('../../includes/load.php');
 // Checkin What level user has permission to view this page
 page_require_level(3);
+$user = current_user();
+$products = find_all('products');
+$customers = find_all('customers');
+$default_customer_id = 1;
+$fecha_hora = date('dmyHis');
+$fechaHora = date('Y-m-d H:i:s');
 ?>
 <?php
 $sale = find_by_id('sales', (int)$_GET['id']);
@@ -10,43 +16,56 @@ if (!$sale) {
   $session->msg("d", "Missing product id.");
   redirect('sales.php');
 }
-?>
-<?php $product = find_by_id('products', $sale['product_id']); ?>
-<?php
+
+$product = find_by_id('products', $sale['product_id']);
 
 if (isset($_POST['update_sale'])) {
-  $req_fields = array('title', 'quantity', 'subtotal', 'total', 'date');
+  $_SESSION['post_data'] = $_POST;
+  $req_fields = array('product_id', 'stock', 'subtotal');
   validate_fields($req_fields);
   if (empty($errors)) {
     $p_id      = $db->escape((int)$product['id']);
-    $s_qty     = $db->escape((int)$_POST['quantity']);
-    $s_total   = $db->escape($_POST['total']);
+    $s_qty     = $db->escape((int)$_POST['stock']);
+    $s_total   = $db->escape($_POST['subtotal']);
+    $user_id    = (int)$user['id'];
+    $customer =    (int)$_POST['c_id'];
     $date      = $db->escape($_POST['date']);
     $s_date    = date("Y-m-d", strtotime($date));
 
     $sql  = "UPDATE sales SET";
-    $sql .= " product_id= '{$p_id}',qty={$s_qty},subtotal='{$s_total}',date='{$s_date}'";
+    $sql .= " customer='{$customer}', product_id= '{$p_id}',qty={$s_qty},subtotal='{$s_total}',date='{$s_date}'";
     $sql .= " WHERE id ='{$sale['id']}'";
     $result = $db->query($sql);
     if ($result && $db->affected_rows() === 1) {
       update_product_qty($s_qty, $p_id);
       $session->msg('s', "Sale updated.");
-      redirect('edit_sale.php?id=' . $sale['id'], false);
+      redirect('edit.php?id=' . $sale['id'], false);
     } else {
       $session->msg('d', ' Sorry failed to updated!');
       redirect('sales.php', false);
     }
   } else {
     $session->msg("d", $errors);
-    redirect('edit_sale.php?id=' . (int)$sale['id'], false);
+    redirect('edit.php?id=' . (int)$sale['id'], false);
   }
 }
 
 ?>
-<?php include_once('layouts/header.php'); ?>
+<?php include_once('../../layouts/header.php'); ?>
 <div class="row">
   <div class="col-md-6">
     <?php echo display_msg($msg); ?>
+    <form method="post" action="ajax.php" autocomplete="off" id="sug-form">
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-primary">Producto</button>
+          </span>
+          <input type="text" id="sug_input" class="form-control" name="title" placeholder="Buscar por el nombre del producto">
+        </div>
+        <div id="result" class="list-group"></div>
+      </div>
+    </form>
   </div>
 </div>
 <div class="row">
@@ -74,13 +93,13 @@ if (isset($_POST['update_sale'])) {
           </thead>
           <tbody id="product_info">
             <tr>
-              <form method="post" action="edit_sale.php?id=<?php echo (int)$sale['id']; ?>">
+              <form method="post" action="edit.php?id=<?php echo (int)$sale['id']; ?>">
                 <td id="s_name">
                   <input type="text" class="form-control" id="sug_input" name="title" value="<?php echo remove_junk($product['name']); ?>">
                   <div id="result" class="list-group"></div>
                 </td>
                 <td id="s_qty">
-                  <input type="text" class="form-control" name="quantity" value="<?php echo (int)$sale['qty']; ?>">
+                  <input type="text" class="form-control" name="stock" value="<?php echo (int)$sale['qty']; ?>">
                 </td>
                 <td id="s_price">
                   <input type="text" class="form-control" name="price" value="<?php echo remove_junk($product['sale_price']); ?>">
@@ -105,4 +124,4 @@ if (isset($_POST['update_sale'])) {
 
 </div>
 
-<?php include_once('layouts/footer.php'); ?>
+<?php include_once('../../layouts/footer.php'); ?>

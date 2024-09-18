@@ -5,12 +5,12 @@ page_require_level(3);
 $user = current_user();
 $products = find_all('products');
 $customers = find_all('customers');
-$default_customer_id = 999999;
+$default_customer_id = 1;
 //obtener el siguiente autoincrement
 $ai = get_next_ai('tickets');
 $ai = conca0($ai);
 $fecha_hora = date('dmyHis');
-$nombre_archivo = 'BV' . (isset($ai) ? $ai : '999999') . '-' . $fecha_hora . '.pdf';
+$nombre_archivo = 'BV' . (isset($ai) ? $ai : '1') . '-' . $fecha_hora . '.pdf';
 $ruta_archivo = ROOT_URL . '/uploads/tickets/' . $nombre_archivo;
 $fechaHora = date('Y-m-d H:i:s');
 ?>
@@ -18,7 +18,7 @@ $fechaHora = date('Y-m-d H:i:s');
 if (isset($_POST['add_sales'])) {
   $_SESSION['post_data'] = $_POST;
   $product_ids = $_POST['product_id'];
-  $quantities = $_POST['quantity'];
+  $quantities = $_POST['qty'];
   $subtotals = $_POST['subtotal'];
   $user_id    = (int)$user['id'];
   $customer =    (int)$_POST['c_id'];
@@ -28,10 +28,10 @@ if (isset($_POST['add_sales'])) {
     $query_values = [];
     for ($i = 0; $i < count($product_ids); $i++) {
       $product_id = (int)$db->escape($product_ids[$i]);
-      $quantity = remove_junk($db->escape($quantities[$i]));
+      $qty = remove_junk($db->escape($quantities[$i]));
       $subtotal   = remove_junk($db->escape($subtotals[$i]));
 
-      $query_values[] = "('{$customer}', '{$product_id}', '{$quantity}', '{$subtotal}', '{$fechaHora}', '{$user_id}')";
+      $query_values[] = "('{$customer}', '{$product_id}', '{$qty}', '{$subtotal}', '{$fechaHora}', '{$user_id}')";
     }
     if (!empty($query_values)) {
       if (empty($errors)) {
@@ -40,7 +40,6 @@ if (isset($_POST['add_sales'])) {
         $query_tickets = "INSERT INTO tickets (url, registered_by, registration_date) VALUES ";
         $query_tickets .= "('{$ruta_archivo}', '{$user_id}', '{$fechaHora}'";
         $query_tickets .= ")";
-
         if ($db->query($query)) {
           //sucess
           if ($db->query($query_tickets)) {
@@ -77,7 +76,7 @@ if (isset($_POST['add_sales'])) {
       <div class="form-group">
         <div class="input-group">
           <span class="input-group-btn">
-            <button type="submit" class="btn btn-primary">Búsqueda</button>
+            <button type="submit" class="btn btn-primary">Producto</button>
           </span>
           <input type="text" id="sug_input" class="form-control" name="title" placeholder="Buscar por el nombre del producto">
         </div>

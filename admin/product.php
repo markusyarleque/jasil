@@ -49,16 +49,16 @@ $products = join_product_table();
                 </td>
                 <td> <?php echo remove_junk($product['name']); ?></td>
                 <td class="text-center"> <?php echo remove_junk($product['categorie']); ?></td>
-                <td class="text-center"> <?php echo remove_junk($product['quantity']); ?></td>
+                <td class="text-center"> <?php echo remove_junk($product['stock']); ?></td>
                 <td class="text-center"> <?php echo remove_junk($product['buy_price']); ?></td>
                 <td class="text-center"> <?php echo remove_junk($product['sale_price']); ?></td>
                 <td class="text-center"> <?php echo read_date($product['date']); ?></td>
                 <td class="text-center">
                   <div class="btn-group">
                     <a href="edit_product.php?id=<?php echo (int)$product['id']; ?>" class="btn btn-info btn-xs" title="Editar" data-toggle="tooltip">
-                      <span class="glyphicon glyphicon-edit"></span>
+                      <span class="glyphicon glyphicon-pencil"></span>
                     </a>
-                    <a href="delete_product.php?id=<?php echo (int)$product['id']; ?>" class="btn btn-danger btn-xs" title="Eliminar" data-toggle="tooltip">
+                    <a href="javascript:void(0);" data-id="<?php echo (int)$product['id']; ?>" class="btn btn-danger btn-xs delete-product" title="Eliminar" data-toggle="tooltip">
                       <span class="glyphicon glyphicon-trash"></span>
                     </a>
                   </div>
@@ -71,4 +71,22 @@ $products = join_product_table();
     </div>
   </div>
 </div>
+<!-- Modal de Confirmación -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h4>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas eliminar este producto?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtnProduct">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <?php include_once('layouts/footer.php'); ?>

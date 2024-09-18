@@ -1,6 +1,7 @@
 <?php
 ob_start();
 require_once('admin/includes/load.php');
+$current_page = basename($_SERVER['PHP_SELF']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,10 +29,10 @@ require_once('admin/includes/load.php');
     <!-- Responsive-->
     <link rel="stylesheet" href="css/responsive.css">
     <!-- favicon -->
-    <link rel="icon" href="images/favicon-16.png" sizes="16x16" type="image/png">
-    <link rel="icon" href="images/favicon-32.png" sizes="32x32" type="image/png">
-    <link rel="icon" href="images/favicon-96.png" sizes="96x96" type="image/png">
-    <link rel="icon" href="images/favicon-192.png" sizes="192x192" type="image/png">
+    <link rel="icon" href="images/logo-jasil.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="images/logo-jasil.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="images/logo-jasil.png" sizes="96x96" type="image/png">
+    <link rel="icon" href="images/logo-jasil.png" sizes="192x192" type="image/png">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
     <!-- Tweaks for older IEs-->
@@ -47,9 +48,15 @@ require_once('admin/includes/load.php');
             <div class="row">
                 <div class="col-sm-12">
                     <div class="header_top_main">
-                        <div class="call_text"><a href="#"><i class="fa fa-phone" aria-hidden="true"></i> +51 902332192</a></div>
-                        <div class="call_text_2"><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i> ryd.jasil@gmail.com</a></div>
-                        <div class="call_text_1"><a href="#mapa"><i class="fa fa-map-marker" aria-hidden="true"></i> Talara, Perú</a></div>
+                        <div class="call_text"><a href="tel:+51902332192"><i class="fa fa-phone" aria-hidden="true"></i> +51 902332192</a></div>
+                        <div class="call_text_2"><a href="mailto:ryd.jasil@gmail.com?cc=soporte@jasil.pe&subject=Informaci%C3%B3n%20Jasil&body=Hola,%0A%0ANecesito%20más%20información%20sobre:%0A%0ASaludos,"><i class="fa fa-envelope" aria-hidden="true"></i> ryd.jasil@gmail.com</a></div>
+                        <div class="call_text_1"><a href="<?php
+                                                            if ($current_page != 'index.php') {
+                                                                echo "contact.php#mapa";
+                                                            } else {
+                                                                echo "#mapa";
+                                                            }
+                                                            ?>"><i class="fa fa-map-marker" aria-hidden="true"></i> Talara, Perú</a></div>
                     </div>
                 </div>
             </div>
@@ -57,10 +64,20 @@ require_once('admin/includes/load.php');
     </div>
     <!-- header top section start -->
     <!-- header section start -->
-    <div class="header_section">
+    <div class="header_section <?php
+                                if ($current_page != 'index.php') {
+                                    echo "header_bg";
+                                }
+                                ?>">
         <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="logo"><a href="index.php"><img src="images/logo.png"></a></div>
+                <div class="logo"><a href="index.php"><img src="<?php
+                                                                if ($current_page != 'index.php') {
+                                                                    echo "images/logo-blanco.png";
+                                                                } else {
+                                                                    echo "images/logo.png";
+                                                                }
+                                                                ?>"></a></div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -70,13 +87,13 @@ require_once('admin/includes/load.php');
                             <a class="nav-link" href="index.php">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.php" id="#historia">Nosotros</a>
+                            <a class="nav-link" href="about.php">Nosotros</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="services.php">Servicios</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="projects.php">Proyectos</a>
+                            <a class="nav-link" href="process.php">Procesos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="blog.php">Blog</a>
@@ -101,8 +118,6 @@ require_once('admin/includes/load.php');
         </div>
         <!-- banner section start -->
         <?php
-        $page_title = 'Servicios';
-        $current_page = basename($_SERVER['PHP_SELF']);
         if ($current_page == 'index.php') {
             include_once('banner.php');
         }

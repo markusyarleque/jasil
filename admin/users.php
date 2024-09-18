@@ -54,10 +54,10 @@ $all_users = find_all_user();
                 <td><?php echo read_date($a_user['last_login']) ?></td>
                 <td class="text-center">
                   <div class="btn-group">
-                    <a href="edit_user.php?id=<?php echo (int)$a_user['id']; ?>" class="btn btn-xs btn-warning" data-toggle="tooltip" title="Editar">
+                    <a href="edit_user.php?id=<?php echo (int)$a_user['id']; ?>" class="btn btn-xs btn-info" data-toggle="tooltip" title="Editar">
                       <i class="glyphicon glyphicon-pencil"></i>
                     </a>
-                    <a href="delete_user.php?id=<?php echo (int)$a_user['id']; ?>" class="btn btn-xs btn-danger" data-toggle="tooltip" title="Eliminar">
+                    <a href="javascript:void(0);" data-id="<?php echo (int)$a_user['id']; ?>" class="btn btn-xs btn-danger delete-user" data-toggle="tooltip" title="Eliminar">
                       <i class="glyphicon glyphicon-remove"></i>
                     </a>
                   </div>
@@ -70,4 +70,22 @@ $all_users = find_all_user();
     </div>
   </div>
 </div>
+<!-- Modal de Confirmación -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h4>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas eliminar este usuario?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtnUser">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <?php include_once('layouts/footer.php'); ?>

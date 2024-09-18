@@ -28,9 +28,9 @@ if (isset($_POST['p_name']) && strlen($_POST['p_name'])) {
       $html .= "<tr>";
       $html .= "<td>" . $result['name'] . "</td>";
       $html .= "<input type=\"hidden\" name=\"s_id\" value=\"{$result['id']}\">";
-      $html .= "<td><input type=\"text\" id=\"stock\" class=\"form-control\" name=\"stock\" value=\"{$result['quantity']}\" disabled></td>";
+      $html .= "<td><input type=\"text\" id=\"stock\" class=\"form-control\" name=\"stock\" value=\"{$result['stock']}\" disabled></td>";
       $html .= "<td><input type=\"text\" class=\"form-control\" name=\"price\" value=\"{$result['sale_price']}\" disabled></td>";
-      $html .= "<td><input type=\"number\" id=\"c\" class=\"form-control\" name=\"quantity\" value=\"1\" min=\"1\" max=\"{$result['quantity']}\"></td>";
+      $html .= "<td><input type=\"number\" id=\"c\" class=\"form-control\" name=\"qty\" value=\"1\" min=\"1\" max=\"{$result['stock']}\"></td>";
       $html .= "<td><input type=\"text\" class=\"form-control\" name=\"total\" disabled></td>";
       $html .= "<td><button type=\"button\" id=\"add-product\" class=\"btn btn-primary add-product\">Agregar</button></td>";
       $html .= "</tr>";

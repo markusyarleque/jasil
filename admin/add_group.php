@@ -57,7 +57,7 @@ if (isset($_POST['add'])) {
     </div>
     <div class="form-group">
       <label for="level" class="control-label"><span class="glyphicon glyphicon-level-up"></span> Nivel del grupo</label>
-      <input type="number" class="form-control" name="group-level">
+      <input type="number" class="form-control" name="group-level" min="1">
     </div>
     <div class="form-group">
       <label for="status"><span class="glyphicon glyphicon-unchecked"></span> Estado</label>

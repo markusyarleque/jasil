@@ -48,10 +48,10 @@ $all_customers = find_all_customer();
                                 <td class="text-center"><?php echo remove_junk(ucwords($a_customer['modified_by'])) . ' - ' . read_date($a_customer['modification_date']) ?></td>
                                 <td class="text-center">
                                     <div class="btn-group">
-                                        <a href="edit.php?id=<?php echo (int)$a_customer['id']; ?>" class="btn btn-xs btn-warning" data-toggle="tooltip" title="Editar">
+                                        <a href="edit.php?id=<?php echo (int)$a_customer['id']; ?>" class="btn btn-xs btn-info" data-toggle="tooltip" title="Editar">
                                             <i class="glyphicon glyphicon-pencil"></i>
                                         </a>
-                                        <a href="delete.php?id=<?php echo (int)$a_customer['id']; ?>" class="btn btn-xs btn-danger" data-toggle="tooltip" title="Eliminar">
+                                        <a href="javascript:void(0);" data-id=" <?php echo (int)$a_customer['id']; ?>" class="btn btn-xs btn-danger delete-customer" data-toggle="tooltip" title="Eliminar">
                                             <i class="glyphicon glyphicon-remove"></i>
                                         </a>
                                     </div>
@@ -64,4 +64,22 @@ $all_customers = find_all_customer();
         </div>
     </div>
 </div>
+<!-- Modal de Confirmación -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h4>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que deseas eliminar este cliente?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtnCustomer">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php include_once('../../layouts/footer.php'); ?>

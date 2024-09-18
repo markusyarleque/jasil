@@ -5,13 +5,19 @@
                 <div class="location_text">
                     <ul>
                         <li>
-                            <a href="#"><span class="padding_15"><i class="fa fa-mobile" aria-hidden="true"></i></span> <br>+51 902332192</a>
+                            <a href="tel:+51902332192"><span class="padding_15"><i class="fa fa-mobile" aria-hidden="true"></i></span> <br>+51 902332192</a>
                         </li>
                         <li class="active">
-                            <a href="#"><span class="padding_15"><i class="fa fa-envelope" aria-hidden="true"></i></span> <br>ryd.jasil@gmail.com</a>
+                            <a href="#mailto:ryd.jasil@gmail.com?cc=soporte@jasil.pe&subject=Informaci%C3%B3n%20Jasil&body=Hola,%0A%0ANecesito%20más%20información%20sobre:%0A%0ASaludos,"><span class="padding_15"><i class="fa fa-envelope" aria-hidden="true"></i></span> <br>ryd.jasil@gmail.com</a>
                         </li>
                         <li>
-                            <a href="#"><span class="padding_15"><i class="fa fa-map-marker" aria-hidden="true"></i></span> <br>Talara, Perú</a>
+                            <a href="<?php
+                                        if ($current_page != 'index.php') {
+                                            echo "contact.php#mapa";
+                                        } else {
+                                            echo "#mapa";
+                                        }
+                                        ?>"><span class="padding_15"><i class="fa fa-map-marker" aria-hidden="true"></i></span> <br>Talara, Perú</a>
                         </li>
                     </ul>
                 </div>
@@ -26,7 +32,7 @@
                             <li><a href="index.php">Inicio</a></li>
                             <li><a href="about.php">Nosotros</a></li>
                             <li><a href="services.php">Servicios</a></li>
-                            <li><a href="projects.php">Proyectos</a></li>
+                            <li><a href="process.php">Procesos</a></li>
                             <li><a href="testimonial.php">Clientes</a></li>
                             <li><a href="blog.php">Blog</a></li>
                             <li><a href="contact.php">Contacto</a></li>
@@ -40,9 +46,10 @@
                 <div class="col-md-4">
                     <h2 class="useful_text">Te Contactamos</h2>
                     <div class="form-group">
-                        <textarea class="update_mail" placeholder="Ingrese su correo" rows="5" id="comment" name="Enter Your Email"></textarea>
-                        <div class="subscribe_bt"><a href="#">Suscríbete</a></div>
+                        <input type="email" class="update_mail" placeholder="Ingrese su correo" id="email" name="email" required></input>
+                        <div class="subscribe_bt"><button type="submit" id="subscribeButton">Suscríbete</button></div>
                     </div>
+                    <div class="g-recaptcha" id="g-recaptcha" data-sitekey="6LcNxkcqAAAAAOgq4a_VkSD7hhCEkE58jZhhhM4U"></div>
                 </div>
             </div>
         </div>
@@ -82,30 +89,29 @@
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/jquery-3.0.0.min.js"></script>
 <script src="js/plugin.js"></script>
+<script src="js/scripts.js"></script>
 <script>
     function goBack() {
         window.history.back();
     };
-    $(document).ready(function() {
-        $('.collapse ul li a').click(function(e) {
-            e.preventDefault();
-            var target = $(this).attr('id');
-            // Asegurarse de que target tiene el formato correcto como un selector de ID
-            if (target != undefined && target.startsWith('#')) {
-                var $targetElement = $(target);
-                // Verificar si el elemento existe antes de proceder
-                if ($targetElement.length) {
-                    $targetElement.load('admin/includes/load_content.php', {
-                        section: target.substring(1)
-                    });
-                } else {
-                    console.error('Elemento de destino no encontrado:', target);
-                }
-            } else {
-                console.error('El valor de id no es un ID válido:', target);
-            }
-        });
-    });
+    /* $(document).ready(function() {
+         $('.collapse ul li a').click(function(e) {
+             e.preventDefault();
+             var target = $(this).attr('id');
+             if (target != undefined && target.startsWith('#')) {
+                 var $targetElement = $(target);
+                 if ($targetElement.length) {
+                     $targetElement.load('admin/includes/load_content.php', {
+                         section: target.substring(1)
+                     });
+                 } else {
+                     console.error('Elemento de destino no encontrado:', target);
+                 }
+             } else {
+                 console.error('El valor de id no es un ID válido:', target);
+             }
+         });
+     });*/
 </script>
 </body>
 

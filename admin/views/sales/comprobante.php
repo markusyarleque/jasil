@@ -9,7 +9,7 @@ $user = current_user();
 if (isset($_SESSION['post_data'])) {
   $post_data = $_SESSION['post_data'];
   $product_ids   = $post_data['product_id'];
-  $quantities   = $post_data['quantity'];
+  $quantities   = $post_data['stock'];
   $subtotals   = $post_data['subtotal'];
   $customer   = $post_data['c_id'];
   $user_id    = (int)$user['id'];

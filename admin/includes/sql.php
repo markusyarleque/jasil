@@ -197,9 +197,13 @@ function find_by_groupName($val)
 function find_by_groupLevel($level)
 {
   global $db;
-  $sql = "SELECT group_level FROM user_groups WHERE group_level = '{$db->escape($level)}' LIMIT 1 ";
-  $result = $db->query($sql);
-  return ($db->num_rows($result) === 0 ? true : false);
+  $sql = "SELECT * FROM user_groups WHERE group_level = '{$db->escape($level)}' LIMIT 1 ";
+  $result = find_by_sql($sql);
+  if ($result === false) {
+    echo "Error en la consulta para obtener el groupLevel: " . $db->error;
+    return false;
+  }
+  return $result;
 }
 /*--------------------------------------------------------------*/
 /* Function for cheaking which user level has access to page
@@ -213,11 +217,11 @@ function page_require_level($require_level)
   if (!$session->isUserLoggedIn(true)) :
     $session->msg('d', 'Por favor, inicia sesión...');
     redirect('index.php', false);
-  //if Group status Deactive
-  elseif ($login_level['group_status'] === '0') :
+  //if Group status Desactive
+  elseif ($login_level[0]['group_status'] === 0) :
     $session->msg('d', 'Este nivel de usuario está inactivo!');
     redirect('home.php', false);
-  //cheackin log in User level and Require level is Less than or equal to
+  //cheacking log in User level and Require level is Less than or equal to
   elseif ($current_user['user_level'] <= (int)$require_level) :
     return true;
   else :
@@ -232,7 +236,7 @@ function page_require_level($require_level)
 function join_product_table()
 {
   global $db;
-  $sql  = " SELECT p.id,p.name,p.quantity,p.buy_price,p.sale_price,p.media_id,p.date,c.name";
+  $sql  = " SELECT p.id,p.name,p.stock,p.buy_price,p.sale_price,p.media_id,p.date,c.name";
   $sql  .= " AS categorie,m.file_name AS image";
   $sql  .= " FROM products p";
   $sql  .= " LEFT JOIN categories c ON c.id = p.categorie_id";
@@ -268,14 +272,14 @@ function find_all_product_info_by_title($title)
 }
 
 /*--------------------------------------------------------------*/
-/* Function for Update product quantity
+/* Function for Update product stock
   /*--------------------------------------------------------------*/
 function update_product_qty($qty, $p_id)
 {
   global $db;
   $qty = (int) $qty;
   $id  = (int)$p_id;
-  $sql = "UPDATE products SET quantity=quantity -'{$qty}' WHERE id = '{$id}'";
+  $sql = "UPDATE products SET stock=stock -'{$qty}' WHERE id = '{$id}'";
   $result = $db->query($sql);
   return ($db->affected_rows() === 1 ? true : false);
 }
@@ -340,15 +344,18 @@ function find_sale_by_dates($start_date, $end_date)
   $start_date  = date("Y-m-d", strtotime($start_date));
   $end_date    = date("Y-m-d", strtotime($end_date));
   $end_date = date("Y-m-d", strtotime($end_date . ' +1 day'));
-  $sql  = "SELECT s.date, p.name,p.sale_price,p.buy_price,";
-  $sql .= "COUNT(s.product_id) AS total_records,";
-  $sql .= "SUM(s.qty) AS total_sales,";
-  $sql .= "SUM(p.sale_price * s.qty) AS total_saleing_price,";
-  $sql .= "SUM(p.buy_price * s.qty) AS total_buying_price ";
-  $sql .= "FROM sales s ";
-  $sql .= "LEFT JOIN products p ON s.product_id = p.id";
+  $sql = "SELECT s.qty,";
+  $sql .= " s.date,p.name, ROUND(p.sale_price, 2) as sale_price, ROUND(p.buy_price, 2) as buy_price, ROUND(s.subtotal * 0.18, 2) as igv, ";
+  $sql .= " ROUND(p.sale_price * s.qty, 2) as total_saleing_price, ";
+  $sql .= " ROUND(p.buy_price * s.qty, 2) as total_buying_price, ";
+  $sql .= "ROUND(s.subtotal - (s.subtotal * 0.18), 2) as subtotal, ";
+  $sql .= " c.document as document_client, c.name as name_client, d.short_description as document_type ";
+  $sql .= " FROM sales s";
+  $sql .= " INNER JOIN products p ON s.product_id = p.id";
+  $sql .= " INNER JOIN customers c ON s.customer = c.id";
+  $sql .= " INNER JOIN document_type d ON c.document_type = d.id";
   $sql .= " WHERE s.date BETWEEN '{$start_date}' AND '{$end_date}'";
-  $sql .= " GROUP BY DATE(s.date),p.name";
+  //$sql .= " GROUP BY DATE(s.date),p.name";
   $sql .= " ORDER BY DATE(s.date) DESC";
   $result = $db->query($sql);
   if ($result === false) {
@@ -361,31 +368,131 @@ function find_sale_by_dates($start_date, $end_date)
 /*--------------------------------------------------------------*/
 /* Function for Generate Daily sales report
 /*--------------------------------------------------------------*/
-function  dailySales($year, $month)
+function  dailySales($year, $month, $day)
 {
   global $db;
+  // Asegurarse de que el mes tenga dos dígitos
+  $month = str_pad($month, 2, '0', STR_PAD_LEFT);
+  $day = str_pad($day, 2, '0', STR_PAD_LEFT);
+
   $sql  = "SELECT s.qty,";
-  $sql .= " DATE_FORMAT(s.date, '%Y-%m-%e') AS date,p.name,";
-  $sql .= "SUM(p.sale_price * s.qty) AS total_saleing_price";
+  $sql .= " s.date,p.name, ROUND(p.sale_price, 2) as sale_price, ROUND(s.subtotal * 0.18, 2) as igv, ";
+  $sql .= " ROUND(s.subtotal, 2) as total_saleing_price, ";
+  $sql .= "ROUND(s.subtotal - (s.subtotal * 0.18), 2) as subtotal, ";
+  $sql .= " c.document as document_client, c.name as name_client, d.short_description as document_type ";
   $sql .= " FROM sales s";
-  $sql .= " LEFT JOIN products p ON s.product_id = p.id";
-  $sql .= " WHERE DATE_FORMAT(s.date, '%Y-%m' ) = '{$year}-{$month}'";
-  $sql .= " GROUP BY DATE_FORMAT( s.date,  '%e' ),s.product_id";
+  $sql .= " INNER JOIN products p ON s.product_id = p.id";
+  $sql .= " INNER JOIN customers c ON s.customer = c.id";
+  $sql .= " INNER JOIN document_type d ON c.document_type = d.id";
+  $sql .= " WHERE DATE_FORMAT(s.date, '%Y-%m-%d' ) = '{$year}-{$month}-{$day}'";
+  //$sql .= " GROUP BY DATE_FORMAT( s.date,  '%e' ),s.product_id";
+  return find_by_sql($sql);
+}
+/*--------------------------------------------------------------*/
+/* Function for Generate Daily sales report x customer
+/*--------------------------------------------------------------*/
+function dailySalesxCustomer($year, $month, $day, $customer)
+{
+  global $db;
+  // Asegurarse de que el mes tenga dos dígitos
+  $month = str_pad($month, 2, '0', STR_PAD_LEFT);
+  $day = str_pad($day, 2, '0', STR_PAD_LEFT);
+
+  $sql  = "SELECT s.qty,";
+  $sql .= " s.date,p.name, ROUND(p.sale_price, 2) as sale_price, ROUND(s.subtotal * 0.18, 2) as igv, ";
+  $sql .= " ROUND(s.subtotal, 2) as total_saleing_price, ";
+  $sql .= "ROUND(s.subtotal - (s.subtotal * 0.18), 2) as subtotal, ";
+  $sql .= " c.document as document_client, c.name as name_client, d.short_description as document_type ";
+  $sql .= " FROM sales s";
+  $sql .= " INNER JOIN products p ON s.product_id = p.id";
+  $sql .= " INNER JOIN customers c ON s.customer = c.id";
+  $sql .= " INNER JOIN document_type d ON c.document_type = d.id";
+  $sql .= " WHERE DATE_FORMAT(s.date, '%Y-%m-%d' ) = '{$year}-{$month}-{$day}'";
+  $sql .= " AND c.id = '{$customer}'";
+  //$sql .= " GROUP BY DATE_FORMAT( s.date,  '%e' ),s.product_id";
   return find_by_sql($sql);
 }
 /*--------------------------------------------------------------*/
 /* Function for Generate Monthly sales report
 /*--------------------------------------------------------------*/
-function  monthlySales($year)
+function  monthlySales($year, $month)
 {
   global $db;
-  $sql  = "SELECT SUM(s.qty) AS qty,";
-  $sql .= " DATE_FORMAT(s.date, '%Y-%m-%e') AS date,p.name,";
-  $sql .= "SUM(p.sale_price * s.qty) AS total_saleing_price";
+  // Asegurarse de que el mes tenga dos dígitos
+  $month = str_pad($month, 2, '0', STR_PAD_LEFT);
+
+  $sql  = "SELECT s.qty,";
+  $sql .= " s.date,p.name, ROUND(p.sale_price, 2) as sale_price, ROUND(s.subtotal * 0.18, 2) as igv, ";
+  $sql .= " ROUND(s.subtotal, 2) as total_saleing_price, ";
+  $sql .= "ROUND(s.subtotal - (s.subtotal * 0.18), 2) as subtotal, ";
+  $sql .= " c.document as document_client, c.name as name_client, d.short_description as document_type ";
   $sql .= " FROM sales s";
-  $sql .= " LEFT JOIN products p ON s.product_id = p.id";
+  $sql .= " INNER JOIN products p ON s.product_id = p.id";
+  $sql .= " INNER JOIN customers c ON s.customer = c.id";
+  $sql .= " INNER JOIN document_type d ON c.document_type = d.id";
+  $sql .= " WHERE DATE_FORMAT(s.date, '%Y-%m' ) = '{$year}-{$month}'";
+  //$sql .= " GROUP BY DATE_FORMAT( s.date,  '%e' ),s.product_id";
+  return find_by_sql($sql);
+}
+/*--------------------------------------------------------------*/
+/* Function for Generate Monthly sales report x customer
+/*--------------------------------------------------------------*/
+function monthlySalesxCustomer($year, $month, $customer)
+{
+  global $db;
+  // Asegurarse de que el mes tenga dos dígitos
+  $month = str_pad($month, 2, '0', STR_PAD_LEFT);
+
+  $sql  = "SELECT s.qty,";
+  $sql .= " s.date,p.name, ROUND(p.sale_price, 2) as sale_price, ROUND(s.subtotal * 0.18, 2) as igv, ";
+  $sql .= " ROUND(s.subtotal, 2) as total_saleing_price, ";
+  $sql .= "ROUND(s.subtotal - (s.subtotal * 0.18), 2) as subtotal, ";
+  $sql .= " c.document as document_client, c.name as name_client, d.short_description as document_type ";
+  $sql .= " FROM sales s";
+  $sql .= " INNER JOIN products p ON s.product_id = p.id";
+  $sql .= " INNER JOIN customers c ON s.customer = c.id";
+  $sql .= " INNER JOIN document_type d ON c.document_type = d.id";
+  $sql .= " WHERE DATE_FORMAT(s.date, '%Y-%m' ) = '{$year}-{$month}'";
+  $sql .= " AND c.id = '{$customer}'";
+  //$sql .= " GROUP BY DATE_FORMAT( s.date,  '%e' ),s.product_id";
+  return find_by_sql($sql);
+}
+/*--------------------------------------------------------------*/
+/* Function for Generate Annually sales report
+/*--------------------------------------------------------------*/
+function  annuallySales($year)
+{
+  global $db;
+  $sql  = "SELECT s.qty,";
+  $sql .= " s.date, p.name, ROUND(p.buy_price, 2) as buy_price, ROUND(p.sale_price, 2) as sale_price, ROUND(s.subtotal * 0.18, 2) as igv, ";
+  $sql .= " ROUND(s.subtotal, 2) as total_saleing_price, ";
+  $sql .= "ROUND(s.subtotal - (s.subtotal * 0.18), 2) as subtotal, ";
+  $sql .= " c.document as document_client, c.name as name_client, d.short_description as document_type ";
+  $sql .= " FROM sales s";
+  $sql .= " INNER JOIN products p ON s.product_id = p.id";
+  $sql .= " INNER JOIN customers c ON s.customer = c.id";
+  $sql .= " INNER JOIN document_type d ON c.document_type = d.id";
   $sql .= " WHERE DATE_FORMAT(s.date, '%Y' ) = '{$year}'";
-  $sql .= " GROUP BY DATE_FORMAT( s.date,  '%c' ),s.product_id";
+  $sql .= " ORDER BY date_format(s.date, '%c' ) ASC";
+  return find_by_sql($sql);
+}
+/*--------------------------------------------------------------*/
+/* Function for Generate Annually sales report x Customer
+/*--------------------------------------------------------------*/
+function  annuallySalesxCustomer($year, $customer)
+{
+  global $db;
+  $sql  = "SELECT s.qty,";
+  $sql .= " s.date, p.name, ROUND(p.buy_price, 2) as buy_price, ROUND(p.sale_price, 2) as sale_price, ROUND(s.subtotal * 0.18, 2) as igv, ";
+  $sql .= " ROUND(s.subtotal, 2) as total_saleing_price, ";
+  $sql .= "ROUND(s.subtotal - (s.subtotal * 0.18), 2) as subtotal, ";
+  $sql .= " c.document as document_client, c.name as name_client, d.short_description as document_type ";
+  $sql .= " FROM sales s";
+  $sql .= " INNER JOIN products p ON s.product_id = p.id";
+  $sql .= " INNER JOIN customers c ON s.customer = c.id";
+  $sql .= " INNER JOIN document_type d ON c.document_type = d.id";
+  $sql .= " WHERE DATE_FORMAT(s.date, '%Y' ) = '{$year}'";
+  $sql .= " AND c.id = '{$customer}'";
   $sql .= " ORDER BY date_format(s.date, '%c' ) ASC";
   return find_by_sql($sql);
 }
@@ -443,11 +550,265 @@ function get_next_ai($table)
 function find_all_ticket()
 {
   global $db;
-  $sql  = "SELECT t.id,t.url,u.name,t.registration_date";
+  $sql  = "SELECT t.id,t.url,u.name,t.registration_date,";
+  $sql .= "SUBSTRING_INDEX(SUBSTRING_INDEX(t.url, '/', -1), '-', 1) AS n_boleta ";
   $sql .= " FROM tickets t";
   $sql .= " JOIN users u ON t.registered_by = u.id";
   $sql .= " ORDER BY t.registration_date DESC";
   return find_by_sql($sql);
+}
+
+/*--------------------------------------------------------------*/
+/* Function for Finding all customers
+  /* Request coming from ajax.php for auto suggest
+  /*--------------------------------------------------------------*/
+
+function find_customers($customer)
+{
+  global $db;
+  $p_name = remove_junk($db->escape($customer));
+  $sql = "SELECT c.*, d.short_description FROM customers c INNER JOIN document_type d ON c.document_type = d.id WHERE c.name like '%$p_name%' OR c.document like '%$p_name%' LIMIT 5 ";
+  $result = find_by_sql($sql);
+  return $result;
+}
+/*--------------------------------------------------------------*/
+/* Function for find all incomes
+ /*--------------------------------------------------------------*/
+function find_all_income()
+{
+  global $db;
+  $sql  = "SELECT i.id,pr.name AS provider,i.qty,i.subtotal,i.date, i.num_voucher, i.igv,p.name, p.sale_price, p.buy_price,u.name AS buyer";
+  $sql .= " FROM incomes i";
+  $sql .= " JOIN products p ON i.product_id = p.id";
+  $sql .= " JOIN providers pr ON i.provider = pr.id";
+  $sql .= " JOIN users u ON i.buyer = u.id";
+  $sql .= " ORDER BY i.date DESC";
+  return find_by_sql($sql);
+}
+/*--------------------------------------------------------------*/
+/* Find all provider by
+  /* Joining users table
+  /*--------------------------------------------------------------*/
+function find_all_provider()
+{
+  global $db;
+  $results = array();
+  $sql = "SELECT p.id,t.short_description,p.document,p.name,p.registration_date,p.modification_date,p.address,";
+  $sql .= "u.name AS registered_by, m.name AS modified_by ";
+  $sql .= "FROM providers p ";
+  $sql .= "JOIN users u ";
+  $sql .= "ON u.id=p.registered_by ";
+  $sql .= "JOIN users m ";
+  $sql .= "ON m.id=p.modified_by ";
+  $sql .= "JOIN document_type t ";
+  $sql .= "ON t.id = p.document_type ORDER BY p.name ASC";
+  $result = find_by_sql($sql);
+  return $result;
+}
+/*--------------------------------------------------------------*/
+/*  Function for Find providers by document
+/*--------------------------------------------------------------*/
+function find_provider_by_doc($type, $doc)
+{
+  global $db;
+  $sql = $db->query("SELECT * FROM providers WHERE document_type='{$db->escape($type)}' and document='{$db->escape($doc)}' LIMIT 1");
+  if ($result = $db->fetch_assoc($sql))
+    return $result;
+  else
+    return null;
+}
+/*--------------------------------------------------------------*/
+/*  Function for Find incomes by num_voucher
+/*--------------------------------------------------------------*/
+function find_incomes_by_voucher($num)
+{
+  global $db;
+  $sql = $db->query("SELECT * FROM incomes WHERE num_voucher='{$db->escape($num)}' LIMIT 1");
+  if ($result = $db->fetch_assoc($sql))
+    return $result;
+  else
+    return null;
+}
+/*--------------------------------------------------------------*/
+/* Function for Generate incomes report by two dates
+/*--------------------------------------------------------------*/
+function find_income_by_dates($start_date, $end_date)
+{
+  global $db;
+  $start_date  = date("Y-m-d", strtotime($start_date));
+  $end_date    = date("Y-m-d", strtotime($end_date));
+  $end_date = date("Y-m-d", strtotime($end_date . ' +1 day'));
+  $sql = "SELECT i.qty,";
+  $sql .= " i.date,p.name, ROUND(p.sale_price, 2) as sale_price, ROUND(p.buy_price, 2) as buy_price, i.igv, ";
+  $sql .= " ROUND(p.sale_price * i.qty, 2) as total_saleing_price, ";
+  $sql .= " ROUND(p.buy_price * i.qty, 2) as total_buying_price, ";
+  $sql .= "ROUND(i.subtotal - (i.subtotal * 0.18), 2) as subtotal, ";
+  $sql .= " pr.document as document_provider, pr.name as name_provider, d.short_description as document_type ";
+  $sql .= " FROM incomes i";
+  $sql .= " INNER JOIN products p ON i.product_id = p.id";
+  $sql .= " INNER JOIN providers pr ON i.provider = pr.id";
+  $sql .= " INNER JOIN document_type d ON pr.document_type = d.id";
+  $sql .= " WHERE i.date BETWEEN '{$start_date}' AND '{$end_date}'";
+  //$sql .= " GROUP BY DATE(s.date),p.name";
+  $sql .= " ORDER BY DATE(i.date) DESC";
+  $result = $db->query($sql);
+  if ($result === false) {
+    echo "Error en la consulta para obtener las ventas por fecha: " . $db->error;
+    return false;
+  }
+
+  return $db->while_loop($result);
+}
+/*--------------------------------------------------------------*/
+/* Function for Generate Daily incomes report
+/*--------------------------------------------------------------*/
+function  dailyIncomes($year, $month, $day)
+{
+  global $db;
+  // Asegurarse de que el mes tenga dos dígitos
+  $month = str_pad($month, 2, '0', STR_PAD_LEFT);
+  $day = str_pad($day, 2, '0', STR_PAD_LEFT);
+
+  $sql = "SELECT i.qty,";
+  $sql .= " i.date,p.name, ROUND(p.sale_price, 2) as sale_price, ROUND(p.buy_price, 2) as buy_price, i.igv, ";
+  $sql .= " ROUND(p.sale_price * i.qty, 2) as total_saleing_price, ";
+  $sql .= " ROUND(p.buy_price * i.qty, 2) as total_buying_price, ";
+  $sql .= "ROUND(i.subtotal - (i.subtotal * 0.18), 2) as subtotal, ";
+  $sql .= " pr.document as document_provider, pr.name as name_provider, d.short_description as document_type ";
+  $sql .= " FROM incomes i";
+  $sql .= " INNER JOIN products p ON i.product_id = p.id";
+  $sql .= " INNER JOIN providers pr ON i.provider = pr.id";
+  $sql .= " INNER JOIN document_type d ON pr.document_type = d.id";
+  $sql .= " WHERE DATE_FORMAT(i.date, '%Y-%m-%d' ) = '{$year}-{$month}-{$day}'";
+  //$sql .= " GROUP BY DATE_FORMAT( s.date,  '%e' ),s.product_id";
+  return find_by_sql($sql);
+}
+/*--------------------------------------------------------------*/
+/* Function for Generate Daily sales report x provider
+/*--------------------------------------------------------------*/
+function dailyIncomesxProvider($year, $month, $day, $provider)
+{
+  global $db;
+  // Asegurarse de que el mes tenga dos dígitos
+  $month = str_pad($month, 2, '0', STR_PAD_LEFT);
+  $day = str_pad($day, 2, '0', STR_PAD_LEFT);
+
+  $sql = "SELECT i.qty,";
+  $sql .= " i.date,p.name, ROUND(p.sale_price, 2) as sale_price, ROUND(p.buy_price, 2) as buy_price, i.igv, ";
+  $sql .= " ROUND(p.sale_price * i.qty, 2) as total_saleing_price, ";
+  $sql .= " ROUND(p.buy_price * i.qty, 2) as total_buying_price, ";
+  $sql .= "ROUND(i.subtotal - (i.subtotal * 0.18), 2) as subtotal, ";
+  $sql .= " pr.document as document_provider, pr.name as name_provider, d.short_description as document_type ";
+  $sql .= " FROM incomes i";
+  $sql .= " INNER JOIN products p ON i.product_id = p.id";
+  $sql .= " INNER JOIN providers pr ON i.provider = pr.id";
+  $sql .= " INNER JOIN document_type d ON pr.document_type = d.id";
+  $sql .= " WHERE DATE_FORMAT(i.date, '%Y-%m-%d' ) = '{$year}-{$month}-{$day}'";
+  $sql .= " AND pr.id = '{$provider}'";
+  //$sql .= " GROUP BY DATE_FORMAT( s.date,  '%e' ),s.product_id";
+  return find_by_sql($sql);
+}
+/*--------------------------------------------------------------*/
+/* Function for Generate Monthly incomes report
+/*--------------------------------------------------------------*/
+function  monthlyIncomes($year, $month)
+{
+  global $db;
+  // Asegurarse de que el mes tenga dos dígitos
+  $month = str_pad($month, 2, '0', STR_PAD_LEFT);
+
+  $sql = "SELECT i.qty,";
+  $sql .= " i.date,p.name, ROUND(p.sale_price, 2) as sale_price, ROUND(p.buy_price, 2) as buy_price, i.igv, ";
+  $sql .= " ROUND(p.sale_price * i.qty, 2) as total_saleing_price, ";
+  $sql .= " ROUND(p.buy_price * i.qty, 2) as total_buying_price, ";
+  $sql .= "ROUND(i.subtotal - (i.subtotal * 0.18), 2) as subtotal, ";
+  $sql .= " pr.document as document_provider, pr.name as name_provider, d.short_description as document_type ";
+  $sql .= " FROM incomes i";
+  $sql .= " INNER JOIN products p ON i.product_id = p.id";
+  $sql .= " INNER JOIN providers pr ON i.provider = pr.id";
+  $sql .= " INNER JOIN document_type d ON pr.document_type = d.id";
+  $sql .= " WHERE DATE_FORMAT(i.date, '%Y-%m' ) = '{$year}-{$month}'";
+  //$sql .= " GROUP BY DATE_FORMAT( s.date,  '%e' ),s.product_id";
+  return find_by_sql($sql);
+}
+/*--------------------------------------------------------------*/
+/* Function for Generate Monthly incomes report x provider
+/*--------------------------------------------------------------*/
+function monthlyIncomesxProvider($year, $month, $provider)
+{
+  global $db;
+  // Asegurarse de que el mes tenga dos dígitos
+  $month = str_pad($month, 2, '0', STR_PAD_LEFT);
+
+  $sql = "SELECT i.qty,";
+  $sql .= " i.date,p.name, ROUND(p.sale_price, 2) as sale_price, ROUND(p.buy_price, 2) as buy_price, i.igv, ";
+  $sql .= " ROUND(p.sale_price * i.qty, 2) as total_saleing_price, ";
+  $sql .= " ROUND(p.buy_price * i.qty, 2) as total_buying_price, ";
+  $sql .= "ROUND(i.subtotal - (i.subtotal * 0.18), 2) as subtotal, ";
+  $sql .= " pr.document as document_provider, pr.name as name_provider, d.short_description as document_type ";
+  $sql .= " FROM incomes i";
+  $sql .= " INNER JOIN products p ON i.product_id = p.id";
+  $sql .= " INNER JOIN providers pr ON i.provider = pr.id";
+  $sql .= " INNER JOIN document_type d ON pr.document_type = d.id";
+  $sql .= " WHERE DATE_FORMAT(i.date, '%Y-%m' ) = '{$year}-{$month}'";
+  $sql .= " AND pr.id = '{$provider}'";
+  //$sql .= " GROUP BY DATE_FORMAT( s.date,  '%e' ),s.product_id";
+  return find_by_sql($sql);
+}
+/*--------------------------------------------------------------*/
+/* Function for Generate Annually incomes report
+/*--------------------------------------------------------------*/
+function  annuallyIncomes($year)
+{
+  global $db;
+  $sql = "SELECT i.qty,";
+  $sql .= " i.date,p.name, ROUND(p.sale_price, 2) as sale_price, ROUND(p.buy_price, 2) as buy_price, i.igv, ";
+  $sql .= " ROUND(p.sale_price * i.qty, 2) as total_saleing_price, ";
+  $sql .= " ROUND(p.buy_price * i.qty, 2) as total_buying_price, ";
+  $sql .= "ROUND(i.subtotal - (i.subtotal * 0.18), 2) as subtotal, ";
+  $sql .= " pr.document as document_provider, pr.name as name_provider, d.short_description as document_type ";
+  $sql .= " FROM incomes i";
+  $sql .= " INNER JOIN products p ON i.product_id = p.id";
+  $sql .= " INNER JOIN providers pr ON i.provider = pr.id";
+  $sql .= " INNER JOIN document_type d ON pr.document_type = d.id";
+  $sql .= " WHERE DATE_FORMAT(i.date, '%Y' ) = '{$year}'";
+  $sql .= " ORDER BY date_format(i.date, '%c' ) ASC";
+  return find_by_sql($sql);
+}
+/*--------------------------------------------------------------*/
+/* Function for Generate Annually incomes report x Provider
+/*--------------------------------------------------------------*/
+function  annuallyIncomesxProvider($year, $provider)
+{
+  global $db;
+  $sql = "SELECT i.qty,";
+  $sql .= " i.date,p.name, ROUND(p.sale_price, 2) as sale_price, ROUND(p.buy_price, 2) as buy_price, i.igv, ";
+  $sql .= " ROUND(p.sale_price * i.qty, 2) as total_saleing_price, ";
+  $sql .= " ROUND(p.buy_price * i.qty, 2) as total_buying_price, ";
+  $sql .= "ROUND(i.subtotal - (i.subtotal * 0.18), 2) as subtotal, ";
+  $sql .= " pr.document as document_provider, pr.name as name_provider, d.short_description as document_type ";
+  $sql .= " FROM incomes i";
+  $sql .= " INNER JOIN products p ON i.product_id = p.id";
+  $sql .= " INNER JOIN providers pr ON i.provider = pr.id";
+  $sql .= " INNER JOIN document_type d ON pr.document_type = d.id";
+  $sql .= " WHERE DATE_FORMAT(i.date, '%Y' ) = '{$year}'";
+  $sql .= " AND pr.id = '{$provider}'";
+  $sql .= " ORDER BY date_format(i.date, '%c' ) ASC";
+  return find_by_sql($sql);
+}
+
+/*--------------------------------------------------------------*/
+/* Function for Finding all providers
+  /* Request coming from ajax_p.php for auto suggest
+  /*--------------------------------------------------------------*/
+
+function find_providers($provider)
+{
+  global $db;
+  $p_name = remove_junk($db->escape($provider));
+  $sql = "SELECT p.*, d.short_description FROM providers p INNER JOIN document_type d ON p.document_type = d.id WHERE p.name like '%$p_name%' OR p.document like '%$p_name%' LIMIT 5 ";
+  $result = find_by_sql($sql);
+  return $result;
 }
 /*--------------------------------------------------------------*/
 /* Function for find content from sections
@@ -455,6 +816,30 @@ function find_all_ticket()
 function find_content($section)
 {
   global $db;
-  $sql  = "SELECT content FROM sections WHERE name = '$section'";
+  $sql  = "SELECT * FROM sections WHERE name = '$section'";
   return find_by_sql($sql);
+}
+/*--------------------------------------------------------------*/
+/* Function for find emails from sections
+ /*--------------------------------------------------------------*/
+function find_emails($email)
+{
+  global $db;
+  $sql = $db->query("SELECT * FROM emails_suscriptions WHERE email='{$db->escape($email)}'");
+  if ($result = $db->fetch_assoc($sql))
+    return $result;
+  else
+    return null;
+}
+/*--------------------------------------------------------------*/
+/* Function for find ip from sections
+ /*--------------------------------------------------------------*/
+function find_ip($ip)
+{
+  global $db;
+  $sql = $db->query("SELECT count(*) AS total FROM emails_suscriptions WHERE ip_address='{$db->escape($ip)}' AND created_at > NOW() - INTERVAL 10 MINUTE");
+  if ($result = $db->fetch_assoc($sql))
+    return $result['total'];
+  else
+    return null;
 }

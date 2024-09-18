@@ -77,10 +77,10 @@ if (isset($_POST['add_cat'])) {
                 <td><?php echo remove_junk(ucfirst($cat['name'])); ?></td>
                 <td class="text-center">
                   <div class="btn-group">
-                    <a href="edit_categorie.php?id=<?php echo (int)$cat['id']; ?>" class="btn btn-xs btn-warning" data-toggle="tooltip" title="Editar">
-                      <span class="glyphicon glyphicon-edit"></span>
+                    <a href="edit_categorie.php?id=<?php echo (int)$cat['id']; ?>" class="btn btn-xs btn-info" data-toggle="tooltip" title="Editar">
+                      <span class="glyphicon glyphicon-pencil"></span>
                     </a>
-                    <a href="delete_categorie.php?id=<?php echo (int)$cat['id']; ?>" class="btn btn-xs btn-danger" data-toggle="tooltip" title="Eliminar">
+                    <a href="javascript:void(0);" data-id="<?php echo (int)$cat['id']; ?>" class="btn btn-xs btn-danger delete-categorie" data-toggle="tooltip" title="Eliminar">
                       <span class="glyphicon glyphicon-trash"></span>
                     </a>
                   </div>
@@ -94,5 +94,22 @@ if (isset($_POST['add_cat'])) {
     </div>
   </div>
 </div>
+</div>
+<!-- Modal de Confirmación -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h4>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas eliminar esta categoría?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtnCategorie">Eliminar</button>
+      </div>
+    </div>
+  </div>
 </div>
 <?php include_once('layouts/footer.php'); ?>

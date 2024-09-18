@@ -8,22 +8,22 @@ $all_photo = find_all('media');
 ?>
 <?php
 if (isset($_POST['add_product'])) {
-  $req_fields = array('product-title', 'product-categorie', 'product-quantity', 'buying-price', 'saleing-price');
+  $req_fields = array('product-title', 'product-categorie', 'product-stock', 'buying-price', 'saleing-price');
   validate_fields($req_fields);
   if (empty($errors)) {
     $p_name  = remove_junk($db->escape($_POST['product-title']));
     $p_cat   = remove_junk($db->escape($_POST['product-categorie']));
-    $p_qty   = remove_junk($db->escape($_POST['product-quantity']));
+    $p_qty   = remove_junk($db->escape($_POST['product-stock']));
     $p_buy   = remove_junk($db->escape($_POST['buying-price']));
     $p_sale  = remove_junk($db->escape($_POST['saleing-price']));
     if (is_null($_POST['product-photo']) || $_POST['product-photo'] === "") {
-      $media_id = '0';
+      $media_id = '1';
     } else {
       $media_id = remove_junk($db->escape($_POST['product-photo']));
     }
     $date    = make_date();
     $query  = "INSERT INTO products (";
-    $query .= " name,quantity,buy_price,sale_price,categorie_id,media_id,date";
+    $query .= " name,stock,buy_price,sale_price,categorie_id,media_id,date";
     $query .= ") VALUES (";
     $query .= " '{$p_name}', '{$p_qty}', '{$p_buy}', '{$p_sale}', '{$p_cat}', '{$media_id}', '{$date}'";
     $query .= ")";
@@ -99,7 +99,7 @@ if (isset($_POST['add_product'])) {
                     <span class="input-group-addon">
                       <i class="glyphicon glyphicon-shopping-cart"></i>
                     </span>
-                    <input type="number" class="form-control" name="product-quantity" placeholder="Cantidad">
+                    <input type="number" class="form-control" name="product-stock" placeholder="Cantidad" min="1">
                   </div>
                 </div>
                 <div class="col-md-4">
@@ -107,7 +107,7 @@ if (isset($_POST['add_product'])) {
                     <span class="input-group-addon">
                       <i>S/</i>
                     </span>
-                    <input type="number" class="form-control" name="buying-price" placeholder="Precio de compra">
+                    <input type="number" class="form-control" name="buying-price" placeholder="Precio de compra" min="1">
                     <span class="input-group-addon">.00</span>
                   </div>
                 </div>
@@ -116,7 +116,7 @@ if (isset($_POST['add_product'])) {
                     <span class="input-group-addon">
                       <i>S/</i>
                     </span>
-                    <input type="number" class="form-control" name="saleing-price" placeholder="Precio de venta">
+                    <input type="number" class="form-control" name="saleing-price" placeholder="Precio de venta" min="1">
                     <span class="input-group-addon">.00</span>
                   </div>
                 </div>

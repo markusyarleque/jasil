@@ -80,7 +80,7 @@ if (isset($_POST['update'])) {
   <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
-        <span class="glyphicon glyphicon-edit"></span>
+        <span class="glyphicon glyphicon-pencil"></span>
         <span>Editar mi cuenta</span>
       </div>
       <div class="panel-body">

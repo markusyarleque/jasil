@@ -8,7 +8,7 @@ $sales = find_all_sale();
 ?>
 <?php include_once('../../layouts/header.php'); ?>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <?php echo display_msg($msg); ?>
   </div>
 </div>
@@ -42,20 +42,20 @@ $sales = find_all_sale();
           <tbody>
             <?php foreach ($sales as $sale) : ?>
               <tr>
-                <td class="text-center"><?php echo count_id(); ?></td>
+                <td class="text-center"><?php echo $sale['id']; ?></td>
                 <td><?php echo remove_junk($sale['customer']); ?></td>
                 <td><?php echo remove_junk($sale['name']); ?></td>
                 <td class="text-center"><?php echo (int)$sale['qty']; ?></td>
-                <td class="text-center"><?php echo (float)$sale['sale_price']; ?></td>
+                <td class="text-right"><?php echo remove_junk($sale['sale_price']); ?></td>
                 <td class="text-right"><?php echo remove_junk($sale['subtotal']); ?></td>
                 <td class="text-center"><?php echo $sale['date']; ?></td>
                 <td><?php echo remove_junk($sale['saler']); ?></td>
                 <td class="text-center">
                   <div class="btn-group">
-                    <a href="edit.php?id=<?php echo (int)$sale['id']; ?>" class="btn btn-warning btn-xs" title="Edit" data-toggle="tooltip">
-                      <span class="glyphicon glyphicon-edit"></span>
-                    </a>
-                    <a href="delete.php?id=<?php echo (int)$sale['id']; ?>" class="btn btn-danger btn-xs" title="Delete" data-toggle="tooltip">
+                    <!--<a href="edit.php?id=<?php echo (int)$sale['id']; ?>" class="btn btn-warning btn-xs" title="Editar" data-toggle="tooltip">
+                      <span class="glyphicon glyphicon-pencil"></span>
+                    </a>-->
+                    <a href="javascript:void(0);" class="btn btn-danger btn-xs delete-sale" data-id="<?php echo (int)$sale['id']; ?>" title="Eliminar" data-toggle="tooltip">
                       <span class="glyphicon glyphicon-trash"></span>
                     </a>
                   </div>
@@ -64,6 +64,23 @@ $sales = find_all_sale();
             <?php endforeach; ?>
           </tbody>
         </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal de Confirmación -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h4>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas eliminar esta venta?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtnSale">Eliminar</button>
       </div>
     </div>
   </div>

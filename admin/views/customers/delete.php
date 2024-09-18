@@ -9,7 +9,7 @@ if ($delete_id) {
     $session->msg("s", "Cliente eliminado");
     redirect('customers.php');
 } else {
-    $session->msg("d", "Se ha producido un error en la eliminación del cliente");
+    $session->msg("d", "Se ha producido un error en la eliminación del cliente.");
     redirect('customers.php');
 }
 ?>
