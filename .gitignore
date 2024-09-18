@@ -1,0 +1,14 @@
+# Ignorar el archivo .env
+.env
+
+# Ignorar carpetas comunes que no deberían subirse al repositorio
+/vendor/
+node_modules/
+admin/node_modules
+.DS_Store
+.idea/
+*.log
+
+# Ignorar archivos de configuración sensibles
+config.php
+admin/includes/config.php

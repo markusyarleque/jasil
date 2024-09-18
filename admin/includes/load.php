@@ -32,8 +32,8 @@ $root_url = $protocol . $host . HTTP_SERVER_ROOT;
 // Almacenar la URL de la raíz
 define('ROOT_URL', $root_url);
 
-require_once(LIB_PATH_INC . 'config.php');
 require_once(LIB_PATH_INC . 'functions.php');
+require_once(LIB_PATH_INC . 'config.php');
 require_once(LIB_PATH_INC . 'session.php');
 require_once(LIB_PATH_INC . 'upload.php');
 require_once(LIB_PATH_INC . 'database.php');

@@ -183,3 +183,37 @@ function name_month($mes)
   // Retorna el nombre del mes correspondiente
   return isset($meses[$mes]) ? $meses[$mes] : 'Enero';
 }
+/*--------------------------------------------------------------*/
+/* Function for load file .env
+/*--------------------------------------------------------------*/
+function loadEnv($filePath)
+{
+  if (!file_exists($filePath)) {
+    throw new Exception("El archivo .env no existe.");
+  }
+
+  $lines = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+  foreach ($lines as $line) {
+    // Saltar los comentarios y las líneas vacías
+    if (strpos(trim($line), '#') === 0 || strpos(trim($line), '=') === false) {
+      continue;
+    }
+
+    // Separar la clave y el valor
+    list($name, $value) = explode('=', $line, 2);
+
+    // Eliminar espacios innecesarios
+    $name = trim($name);
+    $value = trim($value);
+
+    // Quitar comillas dobles o simples si están presentes
+    if (preg_match('/^["\'](.*)["\']$/', $value, $matches)) {
+      $value = $matches[1];
+    }
+
+    // Establecer la variable de entorno
+    putenv("$name=$value");
+    $_ENV[$name] = $value;
+  }
+}

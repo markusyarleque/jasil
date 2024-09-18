@@ -2,7 +2,7 @@
 require_once('admin/includes/load.php');
 $ip = $_SERVER['REMOTE_ADDR'];
 // Verifica el CAPTCHA
-$secretKey = "6LcNxkcqAAAAAI-f1xr1x25xMnAKSAgiqkbpxeKI";
+$secretKey = getenv('RECAPTCHA_SECRET_KEY');
 $captchaResponse = $_POST['recaptcha'];
 $verifyResponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$captchaResponse");
 $responseData = json_decode($verifyResponse);

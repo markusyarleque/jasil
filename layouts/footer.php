@@ -49,7 +49,7 @@
                         <input type="email" class="update_mail" placeholder="Ingrese su correo" id="email" name="email" required></input>
                         <div class="subscribe_bt"><button type="submit" id="subscribeButton">Suscríbete</button></div>
                     </div>
-                    <div class="g-recaptcha" id="g-recaptcha" data-sitekey="6LcNxkcqAAAAAOgq4a_VkSD7hhCEkE58jZhhhM4U"></div>
+                    <div class="g-recaptcha" id="g-recaptcha" data-sitekey=<?php echo $recaptcha_site_key ?>></div>
                 </div>
             </div>
         </div>
