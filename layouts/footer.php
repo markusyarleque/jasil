@@ -56,16 +56,16 @@
         <div class="social_icon">
             <ul>
                 <li>
-                    <a href="https://www.facebook.com/jasil"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="https://www.facebook.com/jasil.pe/" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                 </li>
                 <li>
-                    <a href="https://www.x.com/jasil"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="https://wa.me/51902332192" target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
                 </li>
                 <li>
-                    <a href="https://www.linkedin.com/jasil"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a href="https://www.linkedin.com/jasil" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
                 </li>
                 <li>
-                    <a href="https://www.instagram.com/jasil"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    <a href="https://www.instagram.com/jasil.pe/" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
                 </li>
             </ul>
         </div>

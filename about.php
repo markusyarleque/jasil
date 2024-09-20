@@ -17,7 +17,7 @@ if ($current_page !== 'index.php') {
             <p class="about_text"><?php echo $sections[0]['content'] ?></p>
             <?php if ($current_page == 'index.php') {
             ?>
-               <div class="read_bt_1"><a href="about.php">Read More</a></div>
+               <div class="read_bt_1"><a href="about.php">Leer más</a></div>
          </div>
          <div class="col-md-6">
             <div class="about_img">
@@ -39,6 +39,8 @@ if ($current_page !== 'index.php') {
    </div>
 </div>
 <br>
+<br>
+<br>
 <div class="row">
    <div class="col-md-6">
       <div class="about_img_2">
@@ -53,6 +55,8 @@ if ($current_page !== 'index.php') {
    </div>
 </div>
 <br>
+<br>
+<br>
 <div class="row">
    <div class="col-md-6">
       <?php $sections = find_content('vision'); ?>
@@ -64,6 +68,22 @@ if ($current_page !== 'index.php') {
          <div class="video_bt">
          </div>
       </div>
+   </div>
+</div>
+<br>
+<br>
+<br>
+<div class="row">
+   <div class="col-md-6">
+      <div class="about_img_4">
+         <div class="video_bt">
+         </div>
+      </div>
+   </div>
+   <div class="col-md-6">
+      <?php $sections = find_content('valores'); ?>
+      <h1 class="about_taital"><?php echo $sections[0]['name'] ?></h1>
+      <p class="about_text"><?php echo $sections[0]['content'] ?></p>
    </div>
 </div>
 <?php

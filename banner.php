@@ -7,7 +7,7 @@
                         <div class="col-sm-12">
                             <div class="banner_taital_main">
                                 <h1 class="banner_taital">REPRESENTACIONES DISTRIBUCIONES JASIL</h1>
-                                <p class="banner_text">Trabajo de arenado, pintura, alquiler de generadores y compresores</p>
+                                <p class="banner_text">Estamos comprometidos a ser tu socio estratégico para cumplir con las exigencias y necesidades que se solicite.</p>
                                 <div class="btn_main">
                                     <div class="started_text active"><a href="about.php">Conoce más</a></div>
                                 </div>
@@ -22,10 +22,9 @@
                         <div class="col-sm-12">
                             <div class="banner_taital_main">
                                 <h1 class="banner_taital">AQUA<br>FRESH<br>JASIL</h1>
-                                <p class="banner_text">Agua de mesa ozonizada en presentaciones de bidón de 20L.</p>
+                                <p class="banner_text">Agua de mesa ozonizada sin gas en presentaciones de 8L y 20L.</p>
                                 <div class="btn_main">
-                                    <div class="started_text active"><a href="#">Contact US</a></div>
-                                    <div class="started_text"><a href="#">About Us</a></div>
+                                    <div class="started_text active"><a href="process.php">Conoce más</a></div>
                                 </div>
                             </div>
                         </div>

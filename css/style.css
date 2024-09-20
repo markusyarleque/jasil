@@ -449,9 +449,32 @@ button {
     width: 100%;
     float: left;
     font-size: 16px;
-    color: var(--white-color);
+    color: var(--azul-color);
     margin-left: 0px;
     font-family: 'Poppins', sans-serif;
+     background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con un poco de transparencia */
+    padding: 20px; /* Relleno interno para que el texto no quede pegado a los bordes */
+    border-radius: 25px; /* Bordes redondeados para dar forma de burbuja */
+    border: 2px solid var(--azul-color); /* Borde con el color temático */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera para dar un efecto flotante */
+    position: relative; /* Necesario para posicionar el "rabito" de la burbuja */
+    margin-top: 30px;
+    width: 360px; /* Ajusta el ancho según tus necesidades */
+}
+
+.banner_text:after {
+    content: '';
+    position: absolute;
+    bottom: -35px; /* Posiciona el "rabito" de la burbuja */
+    left: 20px;
+    border-width: 15px;
+    border-style: solid;
+    border-color: var(--azul-color) transparent transparent transparent; /* Crea el "rabito" de la burbuja */
+}
+
+#banner_text{
+    margin-right: 20px;
+    display: flex;
 }
 
 .btn_main {
@@ -496,7 +519,7 @@ button {
     right: 30px;
     top: 120px;
     color: var(--white-color);
-    background-color: var(--yellow-color);
+    background-color: var(--azul-color);
 }
 
 #my_slider .carousel-control-next,
@@ -515,7 +538,7 @@ button {
 #my_slider .carousel-control-prev:focus,
 #my_slider .carousel-control-prev:hover {
     color: var(--white-color);
-    background-color: var(--yellow-color);
+    background-color: var(--azul-color);
 }
 
 
@@ -534,9 +557,10 @@ button {
     width: 100%;
     float: left;
     font-size: 40px;
+    font-style: italic;
     color: #3b3a3a;
     font-weight: bold;
-    padding-top: 40px;
+    padding-top: 10px;
 }
 
 .about_text {
@@ -575,6 +599,16 @@ button {
     background-size: cover;
     padding: 0px 0px 0px 0px;
 }
+
+.about_img_4 {
+    width: 100%;
+    float: left;
+    background-image: url(../images/calidad.jpg);
+    height: auto;
+    background-size: cover;
+    padding: 0px 0px 0px 0px;
+}
+
 .video_bt {
     width: 100%;
     padding: 155px 0px;
@@ -1419,3 +1453,91 @@ textarea#comment.massage-bt::placeholder {
 }
 
 /* 404 section end */
+
+/* process section start */
+
+.process-container {
+
+    background: url('images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    width: 100%;
+    float: left;
+    padding: 90px 0px 0px 0px;
+}
+
+.process_tittle {
+    width: 100%;
+    float: left;
+    font-size: 40px;
+    color: var(--black-color);
+    font-weight: bold;
+    text-align: center;
+}
+
+.process-diagram {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+.process-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.process-steps li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.step-number {
+    background-color: #3498db;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    position: relative;
+    z-index: 10;
+}
+
+.process-info {
+    background-color: #e74c3c;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    flex: 1;
+    margin: 0 10px;
+    font-size: 18px;
+}
+
+.connector {
+    height: 4px;
+    background-color: #3498db;
+    flex: 1;
+}
+
+.process-steps li:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background-color: #3498db;
+    border-radius: 50%;
+}
+
+/* process section end */
