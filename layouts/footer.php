@@ -83,6 +83,60 @@
     </div>
 </div>
 <!-- copyright section end -->
+<!-- Modal Cotizacion start-->
+<div class="modal fade" id="quoteModal" tabindex="-1" role="dialog" aria-labelledby="quoteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="quoteModalLabel">Solicitar Cotización</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="quoteForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="fullName">Nombres Completos</label>
+                        <input type="text" class="form-control" id="fullName" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Empresa o Compañía</label>
+                        <input type="text" class="form-control" id="company" name="company">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Número Telefónico</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Seleccionar el Servicio a Consultar</label>
+                        <select class="form-control" id="service" name="service" required>
+                            <option>Seleccionar</option>
+                            <option value="Servicio de agua de mesa (20L)">Servicio de agua de mesa (20L)</option>
+                            <option value="Servicio de agua de mesa (8L)">Servicio de agua de mesa (8L)</option>
+                            <option value="Servicio de construcción">Servicio de construcción</option>
+                            <option value="Alquiler de generadores">Alquiler de generadores</option>
+                            <option value="Servicio de arenado y pintura">Servicio de arenado y pintura</option>
+                            <option value="Otros servicios generales">Otros servicios generales</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Detalle del Mensaje</label>
+                        <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Enviar Información</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal Cotizacion end-->
 <!-- Javascript files-->
 <script src="js/jquery.min.js"></script>
 <script src="js/popper.min.js"></script>

@@ -12,7 +12,7 @@ if ($current_page !== 'index.php') {
    <div class="container">
       <div class="row">
          <div class="col-md-12">
-            <h1 class="contact_taital">Contact Us</h1>
+            <h1 class="contact_taital">Contáctanos</h1>
          </div>
       </div>
    </div>
@@ -22,16 +22,16 @@ if ($current_page !== 'index.php') {
             <div class="col-md-6">
                <form action="">
                   <div class="mail_section_1">
-                     <input type="text" class="mail_text" placeholder="Name" name="Name">
-                     <input type="text" class="mail_text" placeholder="Phone Number" name="Phone Number">
+                     <input type="text" class="mail_text" placeholder="Nombre" name="Name">
+                     <input type="text" class="mail_text" placeholder="Teléfono" name="Phone Number">
                      <input type="text" class="mail_text" placeholder="Email" name="Email">
-                     <textarea class="massage-bt" placeholder="Massage" rows="5" id="comment" name="Massage"></textarea>
-                     <div class="send_bt"><a href="#">SEND</a></div>
+                     <textarea class="massage-bt" placeholder="Mensaje" rows="5" id="comment" name="Massage"></textarea>
+                     <div class="send_bt"><a href="#">Enviar</a></div>
                   </div>
                </form>
             </div>
             <div class="col-md-6 padding_left_15">
-               <div class="contact_img"><img src="images/contact-img.png"></div>
+               <div class="contact_img"><img src="images/contact-img.jpg"></div>
             </div>
          </div>
       </div>

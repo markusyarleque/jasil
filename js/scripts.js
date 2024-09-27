@@ -44,4 +44,32 @@ $(document).ready(function () {
             alert('Por favor, introduce un correo válido.');
         }
     });
+    document.getElementById('quoteForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        var formData = new FormData(this);
+
+        // Opciones de la solicitud
+        var options = {
+            method: 'POST',
+            body: formData
+        };
+        console.log("1");
+        fetch('send_quote.php', options)
+            .then(response => response.text())
+            .then(data => {
+                console.log("2");
+                alert('Cotización enviada exitosamente.');
+                console.log("3");
+                console.log(data);
+                // Cerrar el modal
+                $('#quoteModal').modal('hide');
+                console.log("4");
+            })
+            .catch(error => {
+                console.log("5");
+                alert('Error al enviar la cotización.');
+            });
+        console.log("6");
+    });
 });

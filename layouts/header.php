@@ -111,7 +111,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
                                 <li><a href="admin/login.php" target="_blank"><i class="fa fa-user" aria-hidden="true"></i> Login</a></li>
                             </ul>
                         </div>
-                        <div class="quote_btn"><a href="#">Cotizar</a></div>
+                        <div class="quote_btn">
+                            <a href="#" data-toggle="modal" data-target="#quoteModal">Cotizar</a>
+                        </div>
                     </form>
                 </div>
             </nav>

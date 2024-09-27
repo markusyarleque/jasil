@@ -83,7 +83,19 @@ if ($current_page !== 'index.php') {
    <div class="col-md-6">
       <?php $sections = find_content('valores'); ?>
       <h1 class="about_taital"><?php echo $sections[0]['name'] ?></h1>
-      <p class="about_text"><?php echo $sections[0]['content'] ?></p>
+      <p class="about_text"><?php
+                              echo $sections[0]['content'];
+                              echo "<br>";
+                              ?>
+      </p>
+      <ul id="lista-valores">
+         <?php
+               $data = json_decode($sections[0]['data'], true);
+               foreach ($data as $key => $value) {
+                  echo "<li><i><b>" . first_character($key) . ":</b> $value</i></li>";
+               }
+         ?>
+      </ul>
    </div>
 </div>
 <?php

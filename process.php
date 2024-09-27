@@ -9,13 +9,13 @@ if ($current_page !== 'index.php') {
 ?>
 <!-- process section start -->
 <div class="container process-container">
-    <div class="row">
-        <div class="col-sm-12">
-            <h1 class="process_tittle">Procesos de Purificación</h1>
-        </div>
-    </div>
-    <br>
     <div class="process-diagram">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="process_tittle">Procesos de Purificación</h1>
+            </div>
+        </div>
+        <br>
         <ul class="process-steps">
             <li>
                 <div class="step-number">1</div>
@@ -51,6 +51,7 @@ if ($current_page !== 'index.php') {
             </li>
         </ul>
     </div>
+    <br>
 </div>
 <!-- process section end -->
 <!-- footer section start -->

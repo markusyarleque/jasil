@@ -571,6 +571,11 @@ button {
     margin-left: 0px;
 }
 
+#lista-valores li{
+    list-style: disc;
+    list-style-position: inside;
+}
+
 .about_img {
     width: 100%;
     float: left;
@@ -1088,6 +1093,8 @@ i.fa.fa-link {
     padding-left: 100px;
     font-weight: bold;
     font-family: 'Poppins', sans-serif;
+    align-items: center;
+    text-align: center;
 }
 
 .contact_section_2 {
@@ -1457,12 +1464,12 @@ textarea#comment.massage-bt::placeholder {
 /* process section start */
 
 .process-container {
-
-    background: url('images/background.jpg') no-repeat center center fixed;
+    background: url('../images/background.jpg') no-repeat center center fixed;
     background-size: cover;
     width: 100%;
     float: left;
     padding: 90px 0px 0px 0px;
+    max-width: 100%;
 }
 
 .process_tittle {
@@ -1528,6 +1535,7 @@ textarea#comment.massage-bt::placeholder {
     flex: 1;
 }
 
+/*
 .process-steps li:after {
     content: "";
     position: absolute;
@@ -1538,6 +1546,22 @@ textarea#comment.massage-bt::placeholder {
     height: 8px;
     background-color: #3498db;
     border-radius: 50%;
-}
+}*/
 
 /* process section end */
+
+
+/* modal cotizacion start */
+
+.modal-header {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #e5e5e5;
+}
+.modal-title {
+    font-weight: 700;
+}
+.modal-footer {
+    border-top: 1px solid #e5e5e5;
+}
+
+/* modal cotizacion end */

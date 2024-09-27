@@ -11,7 +11,7 @@ include_once('about.php');
 /* about section end */
 
 /* projects section start */
-include_once('projects.php');
+include_once('process.php');
 /* projects section end */
 
 /* testimonial section start */
