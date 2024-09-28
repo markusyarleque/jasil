@@ -1,5 +1,4 @@
 <?php
-ob_start();
 $page_title = 'Login';
 require_once('includes/load.php');
 if ($session->isUserLoggedIn(true)) {

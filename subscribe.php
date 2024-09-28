@@ -16,7 +16,7 @@ $captchaResponse = $_POST['recaptcha'];
 $verifyResponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$captchaResponse");
 $responseData = json_decode($verifyResponse);
 
-if ($responseData->success) {
+if ($responseData) {
     $validar_ip = find_ip($ip);
     if ($validar_ip !== null && $validar_ip >= 3) {
         echo
@@ -46,17 +46,17 @@ if ($responseData->success) {
                     try {
                         // Configuración del servidor SMTP
                         $mail->isSMTP();                                   // Utilizar SMTP
-                        $mail->Host = 'mail.jasil.pe';                     // Servidor SMTP
+                        $mail->Host = $host_email;                     // Servidor SMTP
                         $mail->SMTPAuth = true;                            // Habilitar autenticación SMTP
-                        $mail->Username = 'soporte@jasil.pe';              // Nombre de usuario SMTP (tu correo)
-                        $mail->Password = 'mJE52B24FQXhXGM';                 // Contraseña SMTP (tu contraseña)
+                        $mail->Username = $support_email;              // Nombre de usuario SMTP (tu correo)
+                        $mail->Password = $support_pass;                 // Contraseña SMTP (tu contraseña)
                         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;   // Habilitar TLS (o SSL)
-                        $mail->Port = 465;                                 // Puerto TCP para SSL
+                        $mail->Port = $port_smtp;                                 // Puerto TCP para SSL
                         // Configurar la codificación
                         $mail->CharSet = 'UTF-8';
                         // Configuración del remitente y destinatario
-                        $mail->setFrom('soporte@jasil.pe', 'Soporte JASIL'); // Remitente
-                        $mail->addAddress('soporte@jasil.pe', 'Soporte JASIL'); // Destinatario
+                        $mail->setFrom($support_email, 'Soporte JASIL'); // Remitente
+                        $mail->addAddress($support_email, 'Soporte JASIL'); // Destinatario
 
                         // Contenido del correo
                         $mail->isHTML(true);                                // Enviar como HTML

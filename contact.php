@@ -20,17 +20,17 @@ if ($current_page !== 'index.php') {
       <div class="contact_section_2">
          <div class="row">
             <div class="col-md-6">
-               <form action="">
+               <form id="contactForm">
                   <div class="mail_section_1">
                      <input type="text" class="mail_text" placeholder="Nombre" name="Name">
-                     <input type="text" class="mail_text" placeholder="Teléfono" name="Phone Number">
+                     <input type="text" class="mail_text" placeholder="Teléfono" name="PhoneNumber">
                      <input type="text" class="mail_text" placeholder="Email" name="Email">
                      <textarea class="massage-bt" placeholder="Mensaje" rows="5" id="comment" name="Massage"></textarea>
-                     <div class="send_bt"><a href="#">Enviar</a></div>
+                     <button type="submit" class="send_bt">Enviar</button>
                   </div>
                </form>
             </div>
-            <div class="col-md-6 padding_left_15">
+            <div class="col-md-6 padding_left_15 text-center">
                <div class="contact_img"><img src="images/contact-img.jpg"></div>
             </div>
          </div>

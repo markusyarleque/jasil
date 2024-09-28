@@ -25,6 +25,7 @@ if ($current_page !== 'index.php') {
     </a>
     <br>
 </div>
+<br>
 <!-- 404 section end -->
 <!-- footer section start -->
 <?php

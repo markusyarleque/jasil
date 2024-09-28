@@ -1,5 +1,4 @@
 <?php
-ob_start();
 require_once('admin/includes/load.php');
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
@@ -48,7 +47,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <div class="row">
                 <div class="col-sm-12">
                     <div class="header_top_main">
-                        <div class="call_text"><a href="tel:+51902332192"><i class="fa fa-phone" aria-hidden="true"></i> +51 902332192</a></div>
+                        <div class="call_text"><i class="fa fa-clock-o"></i> Lunes a Sábado de 09:00 - 18:00
+                        </div>
+                        <div class="call_text_2"><a href="tel:+51902332192"><i class="fa fa-phone" aria-hidden="true"></i> +51 902332192</a></div>
                         <div class="call_text_2"><a href="mailto:ryd.jasil@gmail.com?cc=soporte@jasil.pe&subject=Informaci%C3%B3n%20Jasil&body=Hola,%0A%0ANecesito%20más%20información%20sobre:%0A%0ASaludos,"><i class="fa fa-envelope" aria-hidden="true"></i> ryd.jasil@gmail.com</a></div>
                         <div class="call_text_1"><a href="<?php
                                                             if ($current_page != 'index.php') {
@@ -83,26 +84,26 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
+                        <li class="nav-item <?php if ($current_page == 'index.php') echo 'active'; ?>">
                             <a class="nav-link" href="index.php">Inicio</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item <?php if ($current_page == 'about.php') echo 'active'; ?>">
                             <a class="nav-link" href="about.php">Nosotros</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item <?php if ($current_page == 'services.php') echo 'active'; ?>">
                             <a class="nav-link" href="services.php">Servicios</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item <?php if ($current_page == 'process.php') echo 'active'; ?>">
                             <a class="nav-link" href="process.php">Procesos</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item <?php if ($current_page == 'blog.php') echo 'active'; ?>">
                             <a class="nav-link" href="blog.php">Blog</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item <?php if ($current_page == 'testimonial.php') echo 'active'; ?>">
                             <a class="nav-link" href="testimonial.php">Clientes</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.php">Contacto</a>
+                        <li class="nav-item <?php if ($current_page == 'contact.php') echo 'active'; ?>">
+                            <a class=" nav-link" href="contact.php">Contacto</a>
                         </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
