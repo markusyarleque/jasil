@@ -824,21 +824,28 @@ $(document).ready(function () {
   $('#confirmDeleteBtnCustomer').click(function () {
     window.location.href = 'delete.php?id=' + customerId;
   });
+  // Llamamos a la función inmediatamente para mostrar la hora actual al cargar la página
+  updateClock();
+
+  // Actualizamos cada 60000 milisegundos (1 minuto)
+  setInterval(updateClock, 60000);
 });
 document.addEventListener('DOMContentLoaded', function () {
   // Seleccionamos el input de tipo file
   var fileInput = document.querySelector('input[name="file_upload"]');
   var fileNameSpan = document.getElementById('file-name');
 
-  fileInput.addEventListener('change', function () {
-    // Verificamos si se ha seleccionado un archivo
-    if (fileInput.files.length > 0) {
-      var fileName = fileInput.files[0].name;
-      fileNameSpan.textContent = fileName;
-    } else {
-      fileNameSpan.textContent = 'No se ha seleccionado ningún archivo';
-    }
-  });
+  if (fileInput && fileNameSpan) {
+    fileInput.addEventListener('change', function () {
+      // Verificamos si se ha seleccionado un archivo
+      if (fileInput.files.length > 0) {
+        var fileName = fileInput.files[0].name;
+        fileNameSpan.textContent = fileName;
+      } else {
+        fileNameSpan.textContent = 'No se ha seleccionado ningún archivo';
+      }
+    });
+  }
 });
 
 //Incomes
@@ -1051,4 +1058,28 @@ function buscarComprasxAnio() {
       }
     });
   });
+}
+
+function updateClock() {
+  // Obtenemos el elemento span con id "clock"
+  var clockElement = document.getElementById('clock');
+
+  // Creamos un nuevo objeto de fecha
+  var now = new Date();
+
+  // Formateamos la fecha y la hora en el formato "dd/mm/yyyy h:i am/pm"
+  var day = ('0' + now.getDate()).slice(-2);
+  var month = ('0' + (now.getMonth() + 1)).slice(-2); // Los meses en JavaScript son 0-11
+  var year = now.getFullYear();
+  var hours = now.getHours();
+  var minutes = ('0' + now.getMinutes()).slice(-2);
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // El valor 0 se convierte en 12
+
+  // Formateamos el string
+  var formattedTime = `${day}/${month}/${year} ${hours}:${minutes} ${ampm}`;
+
+  // Actualizamos el contenido del span con el nuevo valor
+  clockElement.innerHTML = formattedTime;
 }

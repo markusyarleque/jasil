@@ -52,6 +52,52 @@ if ($current_page !== 'index.php') {
         </ul>
     </div>
     <br>
+    <div class="process-diagram">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="process_tittle">Análisis Físico-Químico y Bacteriológico del Agua</h1>
+            </div>
+        </div>
+        <br>
+        <div class="analisis-text">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>
+                        Analizamos nuestra agua para que esté libre de microorganismos patógenos, minerales y de sustancias orgánicas que pueden producir efectos fisiológicos adversos.
+                        Debe ser estéticamente aceptable y por lo tanto, debe estar exenta de turbidez, color y sabor desagradable.
+                        Agua Jasil puede ser ingerida y/o utilizada en el procesamiento de alimentos en cualquier cantidad, sin temor a efectos adversos sobre la salud.
+                    </p>
+                </div>
+                <div class="col-sm-6">
+                    <div class="analisis-img">
+                        <div class="video_bt">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="process-diagram">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="process_tittle">Proceso productivo</h1>
+            </div>
+        </div>
+        <br>
+        <div class="analisis-text">
+            <ul class="process-steps">
+                <li>
+                    <div class="step-number">1</div>
+                    <div class="process-info">Producción</div>
+                    <div class="connector"></div>
+                    <div class="step-number">2</div>
+                    <div class="process-info">ALmacenamiento</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <br>
 </div>
 <!-- process section end -->
 <!-- footer section start -->

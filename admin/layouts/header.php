@@ -8,7 +8,7 @@
             echo remove_junk($page_title);
           elseif (!empty($user))
             echo ucfirst($user['name']);
-          else echo "InventaX"; ?>
+          else echo "Jasil"; ?>
   </title>
   <?php
   $images_url = HTTP_SERVER_ROOT . '/libs/images';
@@ -29,7 +29,7 @@
 <body>
   <?php if ($session->isUserLoggedIn(true)) : ?>
     <header id="header">
-      <div class="logo pull-left">La casa de Repuestos</div>
+      <div class="logo pull-left">JASIL</div>
       <div class="header-content">
         <div class="header-date pull-left">
           <strong><span id="clock"><?php echo date("d/m/Y  g:i a"); ?></span></strong>

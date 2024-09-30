@@ -1564,6 +1564,34 @@ textarea#comment.massage-bt::placeholder {
     flex: 1;
 }
 
+.analisis-text p{
+    font-size: 18px;
+    color: var(--azul-color);
+    font-family: 'Courier New', Courier, monospace;
+    font-style: italic;
+    font-weight: bold;
+    text-align: justify;
+}
+
+.analisis-text{
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    vertical-align: middle;
+}
+
+.analisis-img {
+    width: 100%;
+    float: left;
+    background-image: url(../images/analisis-aqua.jpg);
+    height: auto;
+    background-size: cover;
+    padding: 0px 0px 0px 0px;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+}
+
 /*
 .process-steps li:after {
     content: "";

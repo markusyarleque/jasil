@@ -24,7 +24,7 @@ if ($session->isUserLoggedIn(true)) {
       <input type="password" name="password" class="form-control" placeholder="Password">
     </div>
     <br>
-    <a href="mailto:soporte@lacasaderepuestos.com.pe?cc=markus.yarleque@gmail.com&subject=Soporte%20Inventax&body=Hola,%0A%0AHe%20olvidado%20mi%20contrase%C3%B1a,%20mi%20usuario%20y%20documento%20son:%0A%0ASaludos,">
+    <a href="mailto:soporte@lacasaderepuestos.com.pe?cc=markus.yarleque@gmail.com&subject=Soporte%20Jasil&body=Hola,%0A%0AHe%20olvidado%20mi%20contrase%C3%B1a,%20mi%20usuario%20y%20documento%20son:%0A%0ASaludos,">
       <p style="text-align: center;">¿Has olvidado la contraseña?</p>
     </a>
     <br>

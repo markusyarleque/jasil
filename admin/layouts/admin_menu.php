@@ -77,7 +77,7 @@
     </ul>
   </li>
   <li>
-    <a href="mailto:soporte@lacasaderepuestos.com.pe?cc=markus.yarleque@gmail.com&subject=Soporte%20Inventax&body=Hola,%0A%0ANecesito%20ayuda%20con%20lo%20siguiente:%0A%0ASaludos,">
+    <a href="mailto:soporte@jasil.pe?cc=ryd.jasil@gmail.com&subject=Soporte%20Jasil&body=Hola,%0A%0ANecesito%20ayuda%20con%20lo%20siguiente:%0A%0ASaludos,">
       <i class="glyphicon glyphicon-exclamation-sign"></i>
       <span>Soporte</span>
       <small class=" label label-info">IT</small>
@@ -87,7 +87,7 @@
     <li>
       <a class="submenu-toggle">
         <i class="glyphicon glyphicon-copyright-mark"></i>
-        <span>2024 InventaX</span>
+        <span>2024 Jasil</span>
       </a>
     </li>
   </div>

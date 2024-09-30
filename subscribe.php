@@ -16,7 +16,7 @@ $captchaResponse = $_POST['recaptcha'];
 $verifyResponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$captchaResponse");
 $responseData = json_decode($verifyResponse);
 
-if ($responseData) {
+if ($responseData->success) {
     $validar_ip = find_ip($ip);
     if ($validar_ip !== null && $validar_ip >= 3) {
         echo
